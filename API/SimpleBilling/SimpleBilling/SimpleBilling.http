@@ -1,0 +1,6 @@
+@SimpleBilling_HostAddress = http://localhost:5121
+
+GET {{SimpleBilling_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
