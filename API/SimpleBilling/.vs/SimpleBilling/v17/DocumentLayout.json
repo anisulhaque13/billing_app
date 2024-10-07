@@ -3,8 +3,98 @@
   "WorkspaceRootPath": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\app.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\order\\order.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\item\\item.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\app-routing.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\category\\category.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\category\\category.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\item\\item.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\app.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\category\\category.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\app.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\angular.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\main.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\models\\domain\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\models\\domain\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\data\\billingdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\data\\billingdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\models\\category.model.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\ui\\simplebilling.web\\simplebilling.web.esproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\models\\updatecategoryrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\models\\updatecategoryrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\models\\domain\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\models\\domain\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\models\\addcategoryrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\models\\addcategoryrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Migrations\\20240919152117_Item Model added.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SimpleBilling\\Migrations\\20240919152117_Item Model added.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\simplebilling.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\simplebilling.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp 2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\migrations\\20240919152254_item model added.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\migrations\\20240919152254_item model added.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -13,12 +103,348 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 294,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "angular.json",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\angular.json",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\angular.json",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\angular.json",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\angular.json",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAAGwAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-29T19:40:35.002Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "order.component.html",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\order\\order.component.html",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\order\\order.component.html",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\order\\order.component.html",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\order\\order.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-10-07T00:23:24.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "item.component.css",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.css",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.css",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.css",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-06T20:52:21.232Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "category.component.html",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.html",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.html",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.html",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.html",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAAAkAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-10-06T20:52:25.905Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "category.component.css",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.css",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.css",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.css",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-06T20:52:25.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "app.component.html",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app.component.html",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.component.html",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app.component.html",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-08-02T10:03:27.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "item.component.html",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.html",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.html",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.html",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-10-06T20:52:17.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "app.module.ts",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app.module.ts",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.module.ts",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app.module.ts",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.module.ts",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAABMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-12T19:04:41.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "app-routing.module.ts",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app-routing.module.ts",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app-routing.module.ts",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app-routing.module.ts",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app-routing.module.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-10-06T21:02:46.407Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "app.component.ts",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app.component.ts",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.component.ts",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app.component.ts",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.component.ts",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAIAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-08-02T11:36:14.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "category.component.ts",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.ts",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.ts",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.ts",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-10-06T23:30:53.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "BillingDBContext.cs",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Data\\BillingDBContext.cs",
+              "RelativeDocumentMoniker": "SimpleBilling\\Data\\BillingDBContext.cs",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Data\\BillingDBContext.cs",
+              "RelativeToolTip": "SimpleBilling\\Data\\BillingDBContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T15:21:33.844Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Models\\Domain\\Category.cs",
+              "RelativeDocumentMoniker": "SimpleBilling\\Models\\Domain\\Category.cs",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Models\\Domain\\Category.cs",
+              "RelativeToolTip": "SimpleBilling\\Models\\Domain\\Category.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-01T18:41:37.598Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "main.ts",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\main.ts",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\main.ts",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\main.ts",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\main.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-08-03T16:13:23.187Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "app.component.css",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app.component.css",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.component.css",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app.component.css",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.component.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-09-29T18:56:40.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "index.html",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\index.html",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\index.html",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\index.html",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\index.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-08-01T21:11:19.818Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "package.json",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\package.json",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\package.json",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\package.json",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\package.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-29T20:01:54.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "styles.css",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\styles.css",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\styles.css",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\styles.css",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\styles.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-09-29T18:58:02.733Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "SimpleBilling\\Controllers\\CategoryController.cs",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "SimpleBilling\\Controllers\\CategoryController.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAcwE8AAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-01T18:55:54.451Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "category.model.ts",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\models\\category.model.ts",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\models\\category.model.ts",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\models\\category.model.ts",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\models\\category.model.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-29T18:16:54.178Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "SimpleBilling.web.esproj",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-09-29T18:44:05.298Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "20240919152117_Item Model added.cs",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Migrations\\20240919152117_Item Model added.cs",
+              "RelativeDocumentMoniker": "SimpleBilling\\Migrations\\20240919152117_Item Model added.cs",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Migrations\\20240919152117_Item Model added.cs",
+              "RelativeToolTip": "SimpleBilling\\Migrations\\20240919152117_Item Model added.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T15:21:17.564Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "20240919152254_Item Model Added.cs",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Migrations\\20240919152254_Item Model Added.cs",
+              "RelativeDocumentMoniker": "SimpleBilling\\Migrations\\20240919152254_Item Model Added.cs",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Migrations\\20240919152254_Item Model Added.cs",
+              "RelativeToolTip": "SimpleBilling\\Migrations\\20240919152254_Item Model Added.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T15:22:54.44Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Item.cs",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Models\\Domain\\Item.cs",
+              "RelativeDocumentMoniker": "SimpleBilling\\Models\\Domain\\Item.cs",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Models\\Domain\\Item.cs",
+              "RelativeToolTip": "SimpleBilling\\Models\\Domain\\Item.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-19T15:15:30.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "UpdateCategoryRequestDTO.cs",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Models\\UpdateCategoryRequestDTO.cs",
+              "RelativeDocumentMoniker": "SimpleBilling\\Models\\UpdateCategoryRequestDTO.cs",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Models\\UpdateCategoryRequestDTO.cs",
+              "RelativeToolTip": "SimpleBilling\\Models\\UpdateCategoryRequestDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-12T19:49:15.3Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "AddCategoryRequestDTO.cs",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Models\\AddCategoryRequestDTO.cs",
+              "RelativeDocumentMoniker": "SimpleBilling\\Models\\AddCategoryRequestDTO.cs",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Models\\AddCategoryRequestDTO.cs",
+              "RelativeToolTip": "SimpleBilling\\Models\\AddCategoryRequestDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-01T19:36:51.825Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "SimpleBilling.http",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.http",
+              "RelativeDocumentMoniker": "SimpleBilling\\SimpleBilling.http",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.http",
+              "RelativeToolTip": "SimpleBilling\\SimpleBilling.http",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2024-08-12T20:49:33.542Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "SimpleBilling\\Properties\\launchSettings.json",
@@ -26,12 +452,7 @@
               "RelativeToolTip": "SimpleBilling\\Properties\\launchSettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-07-24T18:15:48.274Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2024-07-24T18:15:48.274Z"
             }
           ]
         }

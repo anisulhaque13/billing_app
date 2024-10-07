@@ -1,0 +1,1 @@
+D:\MS\Thesis\Attemp 2\Asp.netCoreWithAngular\UI\SimpleBilling.web\obj\Debug\SimpleBilling.web.esproj.CoreCompileInputs.cache

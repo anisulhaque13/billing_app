@@ -1,0 +1,38 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>  <!-- 'menu' is the name of the icon -->
+  </button>
+  <h1>Billing App</h1>
+</mat-toolbar>
+
+<mat-sidenav-container autosize="true" >
+  <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : ''" [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'">
+    <mat-nav-list>
+      <!-- Category Item -->
+      <a mat-list-item [routerLink]="['/category-component']" routerLinkActive="active" aria-current="page">
+        <mat-icon style="color: #5985E1">category</mat-icon>
+        <span *ngIf="!isCollapsed">Category</span>
+      </a>
+
+      <!-- Item -->
+      <a mat-list-item [routerLink]="['/item-component']" routerLinkActive="active" aria-current="page">
+        <mat-icon style="color: #5985E1">list_alt_check</mat-icon>
+        <span *ngIf="!isCollapsed">Item</span>
+      </a>
+
+      <!-- Order -->
+      <a mat-list-item [routerLink]="['/order-component']" routerLinkActive="active" aria-current="page">
+        <mat-icon style="color: #5985E1">local_mall</mat-icon>
+        <span *ngIf="!isCollapsed">Order</span>
+      </a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    
+    <!-- src/app/app.component.html -->
+
+
+    <router-outlet ></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
