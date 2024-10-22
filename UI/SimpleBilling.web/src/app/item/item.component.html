@@ -1,1 +1,113 @@
-<p style="height: 100vh;">item works!</p>
+<div class="flex h-screen">
+  <div class="w-[50%]">
+    <!-- Reactive Form for Adding/Editing Item -->
+    <form (ngSubmit)="onFormSubmit()" [formGroup]="itemForm">
+      <h1>{{ selectedItem ? 'Edit Item' : 'Add Item' }}</h1>
+      <div class="mt-2">
+        <label for="name" class="font-bold">Name</label>
+        <input type="text"
+               class="w-full p-2 border-2 rounded-sm mt-2"
+               formControlName="name"
+               placeholder="Enter item name" />
+      </div>
+
+      <div class="mt-2">
+        <label for="category" class="font-bold">Category</label>
+        <select class="w-full p-2 border-2 rounded-sm mt-2" formControlName="categoryId">
+          <option value="" disabled selected>Select a category</option>
+          <!-- Use the async pipe to bind the categories$ observable -->
+          <option *ngFor="let category of categories$ | async" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mt-2">
+        <label for="unit" class="font-bold">Unit</label>
+        <input type="text"
+               class="w-full p-2 border-2 rounded-sm mt-2"
+               formControlName="unit"
+               placeholder="Enter item unit" />
+      </div>
+      <div class="mt-2">
+        <label for="price" class="font-bold">Price</label>
+        <input type="text"
+               class="w-full p-2 border-2 rounded-sm mt-2"
+               formControlName="price"
+               placeholder="Enter item price" />
+      </div>
+      <div class="mt-2">
+        <button type="submit"
+                class="bg-slate-800 text-white px-4 py-2 rounded-sm w-full">
+          {{ selectedItem ? 'Update' : 'Add' }}
+        </button>
+      </div>
+
+      <!-- Cancel Edit button (shown only when editing) -->
+      <div class="mt-2" *ngIf="selectedItem">
+        <button type="button" (click)="resetForm()" class="bg-red-500 text-white px-4 py-2 rounded-sm w-full">
+          Cancel Edit
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="overflow-auto w-[50%]">
+    <!-- Items list -->
+    <div *ngIf="items$ | async as items; else noItems" class="mt-2">
+      <div class="overflow-x-auto">
+        <div class="min-w-full shadow rounded-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-3 flex items-center justify-between">
+            <div class="text-lg font-bold">Items List</div>
+          </div>
+          <div class="divide-y divide-gray-200">
+            <!-- Header -->
+            <div class="grid grid-cols-5 bg-gray-100 font-semibold text-gray-700">
+              <div class="px-6 py-2">Name</div>
+              <div class="px-6 py-2">Category</div>
+              <div class="px-6 py-2">Price</div>
+              <div class="px-6 py-2">Unit</div>
+              <div class="px-6 py-2">Actions</div>
+            </div>
+            <!-- Body -->
+            <div *ngFor="let item of items" class="grid grid-cols-5 py-2 border-b">
+              <div class="px-6">{{ item.name }}</div>
+              <div class="px-6">{{ item.categoryName }}</div>
+              <div class="px-6">{{ item.price | currency }}</div>
+              <div class="px-6">{{ item.unit }}</div>
+              <div class="px-6 flex space-x-2">
+                <button class="bg-blue-500 text-white py-1 px-2 rounded" type="button" (click)="onEdit(item)">
+                  <mat-icon>edit_note</mat-icon>
+                </button>
+                <button class="bg-red-500 text-white py-1 px-2 rounded" type="button" (click)="onDelete(item.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fallback for when there are no items -->
+    <ng-template #noItems>
+      <p class="mt-2">No items found</p>
+    </ng-template>
+
+    <!-- Fallback for when items are empty -->
+    <ng-template #noItemsFound>
+      <p class="mt-2">Loading items...</p>
+    </ng-template>
+
+
+    <!-- Fallback for when there are no items -->
+    <ng-template #noItems>
+      <p>Loading items...</p>
+    </ng-template>
+
+    <!-- Fallback for when items are empty -->
+    <ng-template #noItemsFound>
+      <p>No items found</p>
+    </ng-template>
+  </div>
+</div>

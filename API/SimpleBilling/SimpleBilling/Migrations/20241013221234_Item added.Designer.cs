@@ -12,8 +12,8 @@ using SimpleBilling.Data;
 namespace SimpleBilling.Migrations
 {
     [DbContext(typeof(BillingDBContext))]
-    [Migration("20240919152254_Item Model Added")]
-    partial class ItemModelAdded
+    [Migration("20241013221234_Item added")]
+    partial class Itemadded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,10 +46,7 @@ namespace SimpleBilling.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("CategoryId1")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -65,7 +62,7 @@ namespace SimpleBilling.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId1");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Items");
                 });
@@ -74,7 +71,7 @@ namespace SimpleBilling.Migrations
                 {
                     b.HasOne("SimpleBilling.Models.Domain.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId1")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

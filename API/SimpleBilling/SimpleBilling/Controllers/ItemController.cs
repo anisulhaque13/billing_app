@@ -21,7 +21,18 @@ namespace SimpleBilling.Controllers
         [HttpGet]
         public IActionResult GetAllItems()
         {
-            var items = dBContext.Items.ToList();
+            var items = dBContext.Items
+                .Include(i => i.Category) // Assuming there's a navigation property
+                .Select(item => new ItemResponseDTO
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    CategoryId = item.Category.Id,
+                    CategoryName = item.Category.Name, // Map the category name
+                    Unit = item.Unit,
+                    Price = item.Price
+                }).ToList();
+
             return Ok(items);
         }
 

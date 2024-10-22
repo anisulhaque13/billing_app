@@ -12,7 +12,7 @@ namespace SimpleBilling.Models.Domain
 
 
         public virtual Category Category { get; set; }
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
 
         [Display(Name = "Unit")]
         public string Unit { get; set; }
