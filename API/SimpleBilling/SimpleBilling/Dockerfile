@@ -2,7 +2,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 8085
 EXPOSE 8081
 
 # Build image
@@ -11,14 +11,14 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy the .csproj file (use the correct relative path)
-COPY ["SimpleBilling.csproj", "./"]
+COPY ["SimpleBilling/SimpleBilling.csproj", "SimpleBilling/"]
 
 # Restore dependencies
-RUN dotnet restore "./SimpleBilling.csproj"
+RUN dotnet restore "./SimpleBilling/SimpleBilling.csproj"
 
 # Copy all project files and build
 COPY . .
-WORKDIR "/src"
+WORKDIR "/src/SimpleBilling"
 RUN dotnet build "./SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish the application

@@ -6,7 +6,11 @@ using SimpleBilling.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Enable logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
+// Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -15,19 +19,32 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BillingDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BillingDB")));
 
-// Configure Kestrel
+// Load Kestrel certificate configuration
+//var certPath = builder.Configuration["Kestrel:Certificates:Path"];
+//var certPassword = builder.Configuration["Kestrel:Certificates:Password"];
+var certPath = "/https/https-dev-cert.pfx";
+var certPassword = "121";
+
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(8080); // HTTP
-    options.ListenAnyIP(8081, listenOptions =>
+    options.ListenAnyIP(8082); // HTTP
+
+    if (!string.IsNullOrEmpty(certPath) && File.Exists(certPath))
     {
-        listenOptions.UseHttps("/https/https-dev-cert.pfx", "121");
-    });
+        options.ListenAnyIP(8081, listenOptions =>
+        {
+            listenOptions.UseHttps(certPath, certPassword);
+        });
+    }
+    else
+    {
+        Console.WriteLine("HTTPS certificate file not found. Skipping HTTPS configuration.");
+    }
 });
 
 var app = builder.Build();
 
-// Apply migrations with retry logic
+// Apply database migrations with retry logic
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -47,7 +64,7 @@ using (var scope = app.Services.CreateScope())
         catch (SqlException ex)
         {
             retryCount++;
-            Console.WriteLine($"Attempt {retryCount} failed to connect to the database. Retrying in 5 seconds...");
+            Console.WriteLine($"Attempt {retryCount} failed to connect to the database. Exception: {ex.Message}");
             if (retryCount >= maxRetries)
             {
                 Console.WriteLine("Max retries reached. Could not connect to the database.");
@@ -59,10 +76,12 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure middleware
+app.UseHttpsRedirection(); // Enforce HTTPS
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseHttpsRedirection();
+
 app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseAuthorization();
 app.MapControllers();
+
 app.Run();
