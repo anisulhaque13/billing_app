@@ -65,7 +65,7 @@
               "RelativeDocumentMoniker": "docker-compose.yml",
               "ToolTip": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\docker-compose.yml",
               "RelativeToolTip": "docker-compose.yml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
               "WhenOpened": "2024-12-15T00:51:56.898Z",
               "EditorCaption": ""
@@ -80,8 +80,7 @@
               "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\services\\api.service.ts",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-14T22:19:17.165Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T22:19:17.165Z"
             },
             {
               "$type": "Document",
@@ -118,8 +117,7 @@
               "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.html",
               "ViewState": "AQIAAC0AAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-12-14T22:50:46.635Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T22:50:46.635Z"
             },
             {
               "$type": "Document",
@@ -131,8 +129,7 @@
               "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\category\\category.component.ts",
               "ViewState": "AQIAAEMAAAAAAAAAAAAQwFkAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-14T21:35:06.007Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T21:35:06.007Z"
             },
             {
               "$type": "Document",
@@ -144,8 +141,7 @@
               "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.module.ts",
               "ViewState": "AQIAABIAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-15T00:08:48.294Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-15T00:08:48.294Z"
             },
             {
               "$type": "Document",
@@ -233,7 +229,7 @@
               "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.ts",
               "ToolTip": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.ts",
               "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\item\\item.component.ts",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAIUAAAAAAAAA",
+              "ViewState": "AQIAAFMAAAAAAAAAAAAAwIUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "WhenOpened": "2024-12-14T22:44:59.299Z",
               "EditorCaption": ""
