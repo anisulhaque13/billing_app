@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.csproj": {}
+    "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.csproj": {}
   },
   "projects": {
-    "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.csproj": {
+    "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.csproj",
+        "projectUniqueName": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.csproj",
         "projectName": "SimpleBilling",
-        "projectPath": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.csproj",
+        "projectPath": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\SimpleBilling.csproj",
         "packagesPath": "C:\\Users\\anisu\\.nuget\\packages\\",
-        "outputPath": "D:\\MS\\Thesis\\Attemp 2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\obj\\",
+        "outputPath": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\anisu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -59,6 +59,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.7, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.20.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
-import { from, Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { catchError } from "rxjs/operators";
 import { Item } from '../../models/item.model';
 import { Category } from '../../models/category.model';
+import { ApiService } from '../../app/services/api.service'; // Import ApiService
 
 @Component({
   selector: 'app-item',
@@ -12,89 +14,120 @@ import { Category } from '../../models/category.model';
 })
 export class ItemComponent {
 
-  http = inject(HttpClient);
+  private http = inject(HttpClient);
+  private apiService = inject(ApiService);
+
   itemForm = new FormGroup({
-    name: new FormControl('', Validators.required),  // Form control with validation
+    name: new FormControl('', Validators.required),
     categoryId: new FormControl('', Validators.required),
-    price: new FormControl('', Validators.required),
+    price: new FormControl('', [Validators.required, Validators.min(0)]), // Ensure price is positive
     unit: new FormControl('', Validators.required),
   });
 
-  items$ = this.getItems();
-  categories$ = this.getCategories();
+  items$: Observable<Item[]> = of([]); // Initialize with an empty observable
+  categories$: Observable<Category[]> = of([]);
   selectedItem: Item | null = null;
+
+  constructor() {
+    this.loadData();
+  }
+
+  private loadData() {
+    // Fetch items and categories on load
+    this.items$ = this.getItems();
+    this.categories$ = this.getCategories();
+  }
 
   onFormSubmit() {
     if (this.itemForm.invalid) {
-      console.log('Form is invalid:', this.itemForm.value);
+      console.error('Form is invalid:', this.itemForm.value);
       return; // Exit if form is invalid
     }
 
-    // Ensure categoryId is passed as an integer
     const formData = {
       name: this.itemForm.value.name,
-      categoryId: this.itemForm.value.categoryId, 
+      categoryId: this.itemForm.value.categoryId,
       unit: this.itemForm.value.unit,
-      price: this.itemForm.value.price // Ensure price is a decimal/float
+      price: this.itemForm.value.price
     };
 
-    console.log('Form data:', formData);  // Log form data to inspect
-
     if (this.selectedItem) {
-      // PUT request for editing an item
-      this.http.put(`https://localhost:7188/api/Item/${this.selectedItem.id}`, formData)
+      // PUT request to update item
+      this.http.put(this.apiService.getUrl(`/api/Item/${this.selectedItem.id}`), formData)
         .subscribe({
           next: () => {
-            this.items$ = this.getItems();
+            this.items$ = this.getItems(); // Refresh items
             this.resetForm();
           },
           error: (error) => {
             console.error('Error updating item:', error);
+            alert('Failed to update the item.');
           }
         });
     } else {
-      // POST request for adding a new item
-      this.http.post('https://localhost:7188/api/Item', formData)
+      // POST request to add new item
+      this.http.post(this.apiService.getUrl('/api/Item'), formData)
         .subscribe({
           next: () => {
-            this.items$ = this.getItems();
+            this.items$ = this.getItems(); // Refresh items
             this.resetForm();
           },
           error: (error) => {
             console.error('Error adding item:', error);
+            alert('Failed to add the item.');
           }
         });
     }
   }
 
-
   onEdit(item: Item) {
     this.selectedItem = item;
     this.itemForm.patchValue({
-      name: item.name
+      name: item.name,
+      categoryId: item.categoryId,
+      price: item.price,
+      unit: item.unit
     });
   }
 
   onDelete(id: string) {
-    this.http.delete(`https://localhost:7188/api/Item/${id}`)
+    this.http.delete(this.apiService.getUrl(`/api/Item/${id}`))
       .subscribe({
         next: () => {
           alert('Item deleted');
-          this.items$ = this.getItems();
+          this.items$ = this.getItems(); // Refresh items
+        },
+        error: (error) => {
+          console.error('Error deleting item:', error);
+          alert('Failed to delete the item.');
         }
       });
   }
 
-  // Make resetForm public so it's accessible in the template
   public resetForm() {
     this.itemForm.reset();
     this.selectedItem = null;
   }
 
   private getItems(): Observable<Item[]> {
-    return this.http.get<Item[]>('https://localhost:7188/api/Item');
+    return this.http.get<Item[]>(this.apiService.getUrl('/api/Item'))
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching items:', error);
+          alert('Failed to fetch items.');
+          return of([]); // Return an empty array on error
+        })
+      );
   }
+
   private getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>('https://localhost:7188/api/Category');
+    return this.http.get<Category[]>(this.apiService.getUrl('/api/Category'))
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching categories:', error);
+          alert('Failed to fetch categories.');
+          return of([]); // Return an empty array on error
+        })
+      );
   }
 }
