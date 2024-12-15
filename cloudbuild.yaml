@@ -1,3 +1,6 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 steps:
   # Step 1: Build Angular App Docker Image
   - name: 'gcr.io/cloud-builders/docker'
@@ -11,7 +14,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/projectmdanisulhaque/angular-app:latest']
 
-  # Step 4: Push Backend Image to Google Container Registry
+  # Step 4: Push Backend Image to GCR
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/projectmdanisulhaque/simplebilling:latest']
 
