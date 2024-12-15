@@ -8,7 +8,7 @@ steps:
 
   # Step 2: Build ASP.NET Core Backend Docker Image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/projectmdanisulhaque/simplebilling:latest', './API/SimpleBilling']
+    args: ['build', '-t', 'gcr.io/projectmdanisulhaque/simplebilling:latest', './API/SimpleBilling/SimpleBilling']
 
   # Step 3: Push Angular App Image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
