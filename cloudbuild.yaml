@@ -19,7 +19,7 @@ steps:
       '-f', 'SimpleBilling/SimpleBilling/Dockerfile',
       'SimpleBilling/SimpleBilling'
     ]
-    dir: 'API'  # Set build context to the "API" folder
+    dir: 'API/SimpleBilling'  # Set build context to the "API" folder
 
   # Step 3: Push Angular App Image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
