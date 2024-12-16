@@ -2,6 +2,13 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
+
+  # Step: Debugging - List directory structure
+  - name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'bash'
+    args: ['-c', 'ls -R']
+    dir: '.'  # This prints the current directory and subdirectories
+
   # Step 1: Build Angular App Docker Image
   - name: 'gcr.io/cloud-builders/docker'
     args: [
