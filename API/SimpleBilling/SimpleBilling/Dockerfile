@@ -30,3 +30,4 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 ENTRYPOINT ["dotnet", "SimpleBilling.dll"]
+ 
