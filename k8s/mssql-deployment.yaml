@@ -14,6 +14,8 @@ spec:
       labels:
         app: mssql
     spec:
+      securityContext:
+        fsGroup: 10001    # Set file system group to ensure volume ownership
       containers:
         - name: mssql
           image: mcr.microsoft.com/mssql/server:2019-latest
@@ -29,6 +31,8 @@ spec:
           volumeMounts:
             - mountPath: /var/opt/mssql
               name: mssql-data
+          securityContext:
+            runAsUser: 10001   # Use a non-root user with proper permissions
       volumes:
         - name: mssql-data
           persistentVolumeClaim:
@@ -54,5 +58,6 @@ spec:
     app: mssql
   ports:
     - protocol: TCP
-      port: 1433
-      targetPort: 1433
+      port: 1433       # Port exposed by the service
+      targetPort: 1433 # Port the container listens on
+  type: LoadBalancer   # Allows external access to the SQL Server
