@@ -40,4 +40,9 @@ steps:
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['apply', '-f', 'k8s/simplebilling-deployment.yaml']
     env:
-  
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=simple-k8s-cluster'
+
+images:
+  - 'gcr.io/projectmdanisulhaque/angular-app:latest'
+  - 'gcr.io/projectmdanisulhaque/simplebilling:latest'
