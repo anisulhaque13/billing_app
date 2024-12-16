@@ -17,7 +17,7 @@ steps:
       'build',
       '-t', 'gcr.io/projectmdanisulhaque/simplebilling:latest',
       '-f', 'SimpleBilling/SimpleBilling/Dockerfile',
-      'API/SimpleBilling'
+      '.'
     ]
     dir: 'API/SimpleBilling'  # Set build context to the "API" folder
 
