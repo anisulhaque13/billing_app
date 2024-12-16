@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6270D4FD-4A04-4732-A31E-10FB7A591CE0}|docker-compose.dcproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\api\\simplebilling\\docker-compose.override.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{6270D4FD-4A04-4732-A31E-10FB7A591CE0}|docker-compose.dcproj|solutionrelative:docker-compose.override.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -60,23 +60,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 674,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "docker-compose.override.yml",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\docker-compose.override.yml",
               "RelativeDocumentMoniker": "docker-compose.override.yml",
               "ToolTip": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\docker-compose.override.yml",
               "RelativeToolTip": "docker-compose.override.yml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAABRAAAA",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAowAwAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2024-12-14T05:01:28.551Z"
+              "WhenOpened": "2024-12-14T05:01:28.551Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Dockerfile",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Dockerfile",
               "RelativeDocumentMoniker": "SimpleBilling\\Dockerfile",
@@ -84,8 +85,7 @@
               "RelativeToolTip": "SimpleBilling\\Dockerfile",
               "ViewState": "AQIAAAIAAAAAAAAAAAAuwCAAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-14T04:57:08.317Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T04:57:08.317Z"
             },
             {
               "$type": "Document",
