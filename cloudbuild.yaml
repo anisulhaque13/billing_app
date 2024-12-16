@@ -3,12 +3,6 @@ options:
 
 steps:
 
-  # Step: Debugging - List directory structure
-  - name: 'gcr.io/cloud-builders/gsutil'
-    entrypoint: 'bash'
-    args: ['-c', 'ls -R']
-    dir: '.'  # This prints the current directory and subdirectories
-
   # Step 1: Build Angular App Docker Image
   - name: 'gcr.io/cloud-builders/docker'
     args: [
@@ -23,10 +17,10 @@ steps:
     args: [
       'build',
       '-t', 'gcr.io/projectmdanisulhaque/simplebilling:latest',
-      '-f', 'SimpleBilling/Dockerfile',
+      '-f', 'API/SimpleBilling/Dockerfile',
       '.'
     ]
-    dir: 'API/SimpleBilling/SimpleBilling'  # Set build context to match Dockerfile location
+    dir: 'API/SimpleBilling/SimpleBilling/'  # Set build context to match Dockerfile location
 
   # Step 3: Push Angular App Image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
