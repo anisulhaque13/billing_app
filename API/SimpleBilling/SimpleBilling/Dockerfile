@@ -10,16 +10,16 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy csproj file (ensure correct relative path)
-COPY ["SimpleBilling/SimpleBilling.csproj", "SimpleBilling/"]
+COPY ["/SimpleBilling.csproj", "SimpleBilling/"]
 
 # Restore dependencies
-RUN dotnet restore "SimpleBilling/SimpleBilling.csproj"
+RUN dotnet restore "/SimpleBilling.csproj"
 
 # Copy all source code
 COPY SimpleBilling/ SimpleBilling/
 
 # Build the application
-RUN dotnet build "SimpleBilling/SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "/SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish the application
 FROM build AS publish
@@ -32,7 +32,7 @@ FROM base AS final
 WORKDIR /app
 
 # Copy the appsettings.json file
-COPY ["SimpleBilling/appsettings.json", "./appsettings.json"]
+COPY ["/appsettings.json", "./appsettings.json"]
 
 # Copy the published application from the publish stage
 COPY --from=publish /app/publish .
