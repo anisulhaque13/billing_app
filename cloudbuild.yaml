@@ -2,31 +2,19 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
-
   # Step 1: Build Angular App Docker Image
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build',
-      '-t', 'gcr.io/projectmdanisulhaque/angular-app:latest',
-      '-f', 'UI/SimpleBilling.web/Dockerfile',
-      'UI/SimpleBilling.web'
-    ]
+    args: ['build', '-t', 'gcr.io/projectmdanisulhaque/angular-app:latest', './UI/SimpleBilling.web']
 
   # Step 2: Build ASP.NET Core Backend Docker Image
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build',
-      '-t', 'gcr.io/projectmdanisulhaque/simplebilling:latest',
-      '-f', 'API/SimpleBilling/Dockerfile',
-      '.'
-    ]
-    dir: 'API/SimpleBilling/SimpleBilling/'  # Set build context to match Dockerfile location
+    args: ['build', '-t', 'gcr.io/projectmdanisulhaque/simplebilling:latest', './API/SimpleBilling/SimpleBilling']
 
   # Step 3: Push Angular App Image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/projectmdanisulhaque/angular-app:latest']
 
-  # Step 4: Push Backend Image to Google Container Registry
+  # Step 4: Push Backend Image to GCR
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/projectmdanisulhaque/simplebilling:latest']
 
