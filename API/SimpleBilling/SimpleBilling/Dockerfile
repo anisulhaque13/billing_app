@@ -9,33 +9,23 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-# Copy csproj file (ensure correct relative path)
-COPY ["/SimpleBilling.csproj", "SimpleBilling/"]
+# Copy csproj file
+COPY ["SimpleBilling.csproj", "./"]
+RUN dotnet restore "SimpleBilling.csproj"
 
-# Restore dependencies
-RUN dotnet restore "/SimpleBilling.csproj"
-
-# Copy all source code
-COPY SimpleBilling/ SimpleBilling/
-
-# Build the application
-RUN dotnet build "/SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/build
+# Copy source code and build
+COPY . .
+RUN dotnet build "SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish the application
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src/SimpleBilling
 RUN dotnet publish "SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Final runtime image
 FROM base AS final
 WORKDIR /app
 
-# Copy the appsettings.json file
-COPY ["/appsettings.json", "./appsettings.json"]
-
-# Copy the published application from the publish stage
+# Copy the published application from publish stage
 COPY --from=publish /app/publish .
 
-# Entrypoint
 ENTRYPOINT ["dotnet", "SimpleBilling.dll"]
