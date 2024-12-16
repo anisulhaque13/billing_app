@@ -13,7 +13,7 @@ services:
       backend: null
     ports:
       - mode: ingress
-        target: 7000
+        target: 80
         published: "7000"
         protocol: tcp
   db:
@@ -53,7 +53,7 @@ services:
       backend: null
     ports:
       - mode: ingress
-        target: 8080
+        target: 8082
         published: "5000"
         protocol: tcp
       - mode: ingress
