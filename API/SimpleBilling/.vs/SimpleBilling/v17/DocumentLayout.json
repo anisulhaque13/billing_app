@@ -3,6 +3,12 @@
   "WorkspaceRootPath": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\ui\\simplebilling.web\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\services\\api.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
@@ -19,6 +25,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\Dockerfile",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\Dockerfile",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\Dockerfile",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\Dockerfile",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-17T02:58:38.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "api.service.ts",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\services\\api.service.ts",
+              "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\services\\api.service.ts",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\services\\api.service.ts",
+              "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\src\\app\\services\\api.service.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-12-17T02:58:06.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\appsettings.json",
               "RelativeDocumentMoniker": "SimpleBilling\\appsettings.json",
