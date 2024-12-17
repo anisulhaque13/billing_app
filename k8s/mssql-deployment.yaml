@@ -58,7 +58,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 3Gi
   storageClassName: standard  # Optional: Specify storage class if required
 
 ---
