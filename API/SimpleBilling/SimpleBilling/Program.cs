@@ -19,6 +19,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BillingDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BillingDB")));
 
+// Define CORS policy
+const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
+    {
+        policy.WithOrigins("http://34.58.234.179:8080") // Add your client app's URL
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // Load Kestrel certificate configuration
 //var certPath = builder.Configuration["Kestrel:Certificates:Path"];
 //var certPassword = builder.Configuration["Kestrel:Certificates:Password"];
@@ -77,10 +89,10 @@ using (var scope = app.Services.CreateScope())
 
 // Configure middleware
 app.UseHttpsRedirection(); // Enforce HTTPS
+app.UseCors(MyAllowSpecificOrigins); // Apply CORS policy
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseAuthorization();
 app.MapControllers();
 
