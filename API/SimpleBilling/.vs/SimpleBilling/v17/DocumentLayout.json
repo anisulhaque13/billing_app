@@ -3,13 +3,25 @@
   "WorkspaceRootPath": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\ui\\simplebilling.web\\nginx.conf||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\services\\api.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\ui\\simplebilling.web\\nginx.conf||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\ui\\simplebilling.web\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
@@ -19,10 +31,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{1314B6F1-F8FA-4B2C-8504-86EADF3A77B1}|..\\..\\UI\\SimpleBilling.web\\SimpleBilling.web.esproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\ui\\simplebilling.web\\src\\app\\app-routing.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|d:\\ms\\thesis\\attemp_2\\asp.netcorewithangular\\api\\simplebilling\\simplebilling\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{2DE4F163-3C4B-449A-AF6E-436AB410D94E}|SimpleBilling\\SimpleBilling.csproj|solutionrelative:simplebilling\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -32,11 +40,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Dockerfile",
+              "RelativeDocumentMoniker": "SimpleBilling\\Dockerfile",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Dockerfile",
+              "RelativeToolTip": "SimpleBilling\\Dockerfile",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-17T18:14:31.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Program.cs",
+              "RelativeDocumentMoniker": "SimpleBilling\\Program.cs",
+              "ToolTip": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\Program.cs",
+              "RelativeToolTip": "SimpleBilling\\Program.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAWwB8AAABBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T18:04:19.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "index.html",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\index.html",
               "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\index.html",
@@ -48,19 +82,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "nginx.conf",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\nginx.conf",
               "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\nginx.conf",
               "ToolTip": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\nginx.conf",
               "RelativeToolTip": "..\\..\\UI\\SimpleBilling.web\\nginx.conf",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAFAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-17T16:18:14.329Z"
+              "WhenOpened": "2024-12-17T16:18:14.329Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "app.module.ts",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app.module.ts",
               "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app.module.ts",
@@ -72,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "app-routing.module.ts",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\app-routing.module.ts",
               "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\app-routing.module.ts",
@@ -84,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Dockerfile",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\Dockerfile",
               "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\Dockerfile",
@@ -96,7 +131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "api.service.ts",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\UI\\SimpleBilling.web\\src\\app\\services\\api.service.ts",
               "RelativeDocumentMoniker": "..\\..\\UI\\SimpleBilling.web\\src\\app\\services\\api.service.ts",
@@ -109,15 +144,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\appsettings.json",
               "RelativeDocumentMoniker": "SimpleBilling\\appsettings.json",
               "ToolTip": "D:\\MS\\Thesis\\Attemp_2\\Asp.netCoreWithAngular\\API\\SimpleBilling\\SimpleBilling\\appsettings.json",
               "RelativeToolTip": "SimpleBilling\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAADAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-17T01:18:05.303Z"
+              "WhenOpened": "2024-12-17T01:18:05.303Z",
+              "EditorCaption": ""
             }
           ]
         }
