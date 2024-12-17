@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
-        policy.WithOrigins("http://34.58.234.179:8080") // Add your client app's URL
+        policy.WithOrigins("http://34.58.234.179:8081") // Add your client app's URL
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
