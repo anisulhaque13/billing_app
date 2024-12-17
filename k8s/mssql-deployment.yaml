@@ -73,4 +73,4 @@ spec:
     - protocol: TCP
       port: 1433       # External service port
       targetPort: 1433 # Container's internal port
-  type: ClusterIP      # Use ClusterIP for internal access (change to LoadBalancer for external access)
+  type: LoadBalancer   # Expose as a LoadBalancer
