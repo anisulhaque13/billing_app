@@ -23,10 +23,10 @@ kind: Service
 metadata:
   name: angular-app-service
 spec:
-  type: LoadBalancer
+  type: LoadBalancer  # Change this to NodePort if you're not in a cloud environment
   selector:
     app: angular-app
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 80        # External port
+      targetPort: 80   # Internal container port
