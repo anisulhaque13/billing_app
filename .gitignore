@@ -1,6 +1,8 @@
 # .NET Core build artifacts
 bin/
 obj/
+**/obj/
+.vs
 *.user
 *.suo
 *.userosscache

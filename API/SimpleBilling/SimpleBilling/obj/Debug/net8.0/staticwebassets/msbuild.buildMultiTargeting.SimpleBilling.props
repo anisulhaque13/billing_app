@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\SimpleBilling.props" />
-</Project>
