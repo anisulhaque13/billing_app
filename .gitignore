@@ -2,7 +2,7 @@
 bin/
 obj/
 **/obj/
-.vs
+**/.vs/
 *.user
 *.suo
 *.userosscache
