@@ -1,70 +1,89 @@
 {
-  "family": "simplebilling-task",
-  "networkMode": "awsvpc",
-  "containerDefinitions": [
-    {
-      "name": "angular-app",
-      "image": "<ECR_REPOSITORY_ANGULAR>:latest",
-      "memory": 512,
-      "cpu": 256,
-      "essential": true,
-      "portMappings": [
+    "family": "simplebilling-task",
+    "containerDefinitions": [
         {
-          "containerPort": 80,
-          "hostPort": 7000
-        }
-      ]
-    },
-    {
-      "name": "simplebilling",
-      "image": "<ECR_REPOSITORY_SIMPLEBILLING>:latest",
-      "memory": 512,
-      "cpu": 256,
-      "essential": true,
-      "portMappings": [
-        {
-          "containerPort": 8080,
-          "hostPort": 5000
+            "name": "angular-app",
+            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/angular-app:latest",
+            "cpu": 256,
+            "memory": 512,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "systemControls": []
         },
         {
-          "containerPort": 8081,
-          "hostPort": 5001
-        }
-      ],
-      "environment": [
-        {
-          "name": "ConnectionStrings__BillingDB",
-          "value": "Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True"
-        }
-      ]
-    },
-    {
-      "name": "db",
-      "image": "<ECR_REPOSITORY_DB>:latest",
-      "memory": 1024,
-      "cpu": 512,
-      "essential": true,
-      "portMappings": [
-        {
-          "containerPort": 1433,
-          "hostPort": 1433
-        }
-      ],
-      "environment": [
-        {
-          "name": "ACCEPT_EULA",
-          "value": "Y"
+            "name": "simplebilling",
+            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/simplebilling:latest",
+            "cpu": 256,
+            "memory": 512,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 8081,
+                    "hostPort": 8081,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "ConnectionStrings__BillingDB",
+                    "value": "Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "systemControls": []
         },
         {
-          "name": "SA_PASSWORD",
-          "value": "123+abc-456"
+            "name": "db",
+            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/db",
+            "cpu": 512,
+            "memory": 1024,
+            "portMappings": [
+                {
+                    "containerPort": 1433,
+                    "hostPort": 1433,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "SA_PASSWORD",
+                    "value": "123+abc-456"
+                },
+                {
+                    "name": "ACCEPT_EULA",
+                    "value": "Y"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "systemControls": []
         }
-      ]
-    }
-  ],
-  "requiresCompatibilities": ["FARGATE"],
-  "cpu": "1024",
-  "memory": "2048",
-  "executionRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole"
+    ],
+    "taskRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "volumes": [],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "2048",
+    "enableFaultInjection": false
 }
