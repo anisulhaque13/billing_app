@@ -44,7 +44,7 @@ jobs:
     - name: Deploy to Amazon ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        service: simplebilling-service  # Replace with your ECS service name
-        cluster: simplebilling-cluster  # Replace with your ECS cluster name
-        task-definition: arn:aws:ecs:eu-north-1:062983379312:task-definition/simplebilling-task:1
+        service: simplebilling-service  #  ECS service name
+        cluster: simplebilling-cluster  #  ECS cluster name
+        task-definition: simplebilling-task:1
         wait-for-service-stability: true
