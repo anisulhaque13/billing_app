@@ -36,7 +36,7 @@ jobs:
     # Step 5: Build and Push Backend Image
     - name: Build and Push Backend Image
       run: |
-        docker build -t simplebilling ./API/SimpleBilling
+        docker build -t simplebilling ./API/SimpleBilling/SimpleBilling
         docker tag simplebilling:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/simplebilling:latest
         docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/simplebilling:latest
 
