@@ -1,0 +1,50 @@
+name: Deploy to AWS ECS
+
+on:
+  push:
+    branches:
+      - aws  # This triggers deployment when pushing to the 'main' branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the code
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    # Step 2: Configure AWS Credentials
+    - name: Configure AWS CLI
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    # Step 3: Login to Amazon ECR
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v1
+
+    # Step 4: Build and Push Angular App Image
+    - name: Build and Push Angular App Image
+      run: |
+        docker build -t angular-app ./UI/SimpleBilling.web
+        docker tag angular-app:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/angular-app:latest
+        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/angular-app:latest
+
+    # Step 5: Build and Push Backend Image
+    - name: Build and Push Backend Image
+      run: |
+        docker build -t simplebilling .
+        docker tag simplebilling:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/simplebilling:latest
+        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/simplebilling:latest
+
+    # Step 6: Deploy to ECS
+    - name: Deploy to Amazon ECS
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        service: simplebilling-service  # Replace with your ECS service name
+        cluster: simplebilling-cluster  # Replace with your ECS cluster name
+       # task-definition: task-definition.json  # Replace with your task definition file
+        wait-for-service-stability: true
