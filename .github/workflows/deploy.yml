@@ -3,15 +3,15 @@ name: Deploy to AWS ECS
 on:
   push:
     branches:
-      - aws  # This triggers deployment when pushing to the 'main' branch
+      - aws  # Triggers the workflow when pushing to the 'aws' branch
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the code
-    - name: Checkout Repository
+    # Step 1: Check out the repository
+    - name: Checkout repository
       uses: actions/checkout@v3
 
     # Step 2: Configure AWS Credentials
@@ -26,26 +26,32 @@ jobs:
     - name: Login to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v1
 
-    # Step 4: Build and Push Angular App Image
+    # Step 4: Build, Tag, and Push Angular App Image
     - name: Build and Push Angular App Image
       run: |
         docker build -t angular-app ./UI/SimpleBilling.web
-        docker tag angular-app:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/angular-app:latest
-        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/angular-app:latest
+        docker tag angular-app:latest ${{ secrets.ECR_REPOSITORY_ANGULAR }}:latest
+        docker push ${{ secrets.ECR_REPOSITORY_ANGULAR }}:latest
 
-    # Step 5: Build and Push Backend Image
+    # Step 5: Build, Tag, and Push Backend Image
     - name: Build and Push Backend Image
       run: |
         docker build -t simplebilling ./API/SimpleBilling/SimpleBilling
-        docker tag simplebilling:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/simplebilling:latest
-        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/simplebilling:latest
+        docker tag simplebilling:latest ${{ secrets.ECR_REPOSITORY_SIMPLEBILLING }}:latest
+        docker push ${{ secrets.ECR_REPOSITORY_SIMPLEBILLING }}:latest
 
-    # Step 6: Deploy to ECS
+    # Step 6: Build, Tag, and Push SQL Server Image (Optional)
+    - name: Build and Push SQL Server Image
+      run: |
+        docker pull mcr.microsoft.com/mssql/server:2019-latest
+        docker tag mcr.microsoft.com/mssql/server:2019-latest ${{ secrets.ECR_REPOSITORY_DB }}:latest
+        docker push ${{ secrets.ECR_REPOSITORY_DB }}:latest
+
+    # Step 7: Deploy to ECS
     - name: Deploy to Amazon ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-         service: simplebilling-service
-         cluster: simplebilling-cluster
-         task-definition: simplebilling-task:1
-         wait-for-service-stability: true
-
+        service: simplebilling-service  # Replace with your ECS service name
+        cluster: simplebilling-cluster  # Replace with your ECS cluster name
+        task-definition: task-definition.json
+        wait-for-service-stability: true
