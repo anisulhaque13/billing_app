@@ -25,8 +25,21 @@ builder.WebHost.ConfigureKestrel(options =>
     //});
 });
 
-var app = builder.Build();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
+
+var app = builder.Build();
+app.UseCors("AllowAll");
 // Apply migrations with retry logic
 using (var scope = app.Services.CreateScope())
 {
@@ -61,8 +74,6 @@ using (var scope = app.Services.CreateScope())
 // Configure middleware
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseHttpsRedirection();
-app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

@@ -18,9 +18,3 @@ D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\bin\Debug\SimpleB
 D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
 D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\obj\Debug\docker-c.35A3FFBA.Up2Date
-D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
-D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
-D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\bin\Debug\Microsoft.Extensions.Logging.dll
-D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
-D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\bin\Debug\Microsoft.Extensions.Options.dll

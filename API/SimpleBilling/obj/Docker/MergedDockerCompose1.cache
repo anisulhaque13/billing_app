@@ -13,7 +13,7 @@ services:
       backend: null
     ports:
       - mode: ingress
-        target: 7000
+        target: 80
         published: "7000"
         protocol: tcp
   db:
@@ -57,10 +57,8 @@ services:
       - --wait
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_Kestrel__Certificates__Default__Password: "121"
-      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/https-dev-cert.pfx
       ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
-      ASPNETCORE_URLS: http://+:8080;https://+:8081
+      ASPNETCORE_URLS: http://+:8080;
       ConnectionStrings__BillingDB: Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
       DOTNET_USE_POLLING_FILE_WATCHER: "1"
       NUGET_FALLBACK_PACKAGES: ""
@@ -75,20 +73,10 @@ services:
     ports:
       - mode: ingress
         target: 8080
-        published: "5000"
-        protocol: tcp
-      - mode: ingress
-        target: 8081
-        published: "5001"
+        published: "8080"
         protocol: tcp
     tty: true
     volumes:
-      - type: bind
-        source: D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\https-dev-cert.pfx
-        target: /https/https-dev-cert.pfx
-        read_only: true
-        bind:
-          create_host_path: true
       - type: bind
         source: D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\API\SimpleBilling\SimpleBilling
         target: /app
