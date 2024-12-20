@@ -19,10 +19,10 @@ builder.Services.AddDbContext<BillingDBContext>(options =>
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(8080); // HTTP
-    options.ListenAnyIP(8081, listenOptions =>
-    {
-        listenOptions.UseHttps("/https/https-dev-cert.pfx", "121");
-    });
+    //options.ListenAnyIP(8081, listenOptions =>
+    //{
+    //    listenOptions.UseHttps("/https/https-dev-cert.pfx", "121");
+    //});
 });
 
 var app = builder.Build();

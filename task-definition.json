@@ -1,11 +1,11 @@
 {
-    "family": "simplebilling-task",
+    "taskDefinitionArn": "arn:aws:ecs:eu-north-1:062983379312:task-definition/simplebilling-task:7",
     "containerDefinitions": [
         {
             "name": "angular-app",
             "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/angular-app:latest",
-            "cpu": 256,
-            "memory": 512,
+            "cpu": 512,
+            "memory": 1024,
             "portMappings": [
                 {
                     "containerPort": 80,
@@ -22,8 +22,8 @@
         {
             "name": "simplebilling",
             "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/simplebilling:latest",
-            "cpu": 256,
-            "memory": 512,
+            "cpu": 512,
+            "memory": 1024,
             "portMappings": [
                 {
                     "containerPort": 8080,
@@ -50,8 +50,8 @@
         {
             "name": "db",
             "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/db",
-            "cpu": 512,
-            "memory": 1024,
+            "cpu": 1024,
+            "memory": 2048,
             "portMappings": [
                 {
                     "containerPort": 1433,
@@ -75,14 +75,42 @@
             "systemControls": []
         }
     ],
+    "family": "simplebilling-task",
     "taskRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
+    "revision": 7,
     "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
     "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "cpu": "1024",
-    "memory": "2048"
+    "cpu": "2048",
+    "memory": "4096",
+    "registeredAt": "2024-12-19T22:12:19.239Z",
+    "registeredBy": "arn:aws:iam::062983379312:user/MdAnisulHaque",
+    "enableFaultInjection": false,
+    "tags": []
 }
