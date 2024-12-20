@@ -17,7 +17,7 @@ COPY ["SimpleBilling/SimpleBilling.csproj", "./"]
 RUN dotnet restore "SimpleBilling.csproj"
 
 # Copy the rest of the source code
-COPY SimpleBilling ./SimpleBilling
+COPY . .
 
 # Build the application
 WORKDIR /src/SimpleBilling
