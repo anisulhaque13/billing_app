@@ -18,7 +18,7 @@ RUN dotnet restore "SimpleBilling.csproj"
 
 # Copy the rest of the source code
 RUN ls -la
-COPY . ./SimpleBilling
+COPY . .
 RUN ls -la
 
 
