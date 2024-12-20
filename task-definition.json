@@ -1,64 +1,48 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:eu-north-1:062983379312:task-definition/simplebilling-task:7",
-    "containerDefinitions": [
+  "family": "simplebilling-task",
+  "networkMode": "awsvpc",
+  "executionRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "angular-app",
+      "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/angular-app:latest",
+      "portMappings": [
         {
-            "name": "angular-app",
-            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/angular-app:latest",
-            "cpu": 512,
-            "memory": 1024,
-            "portMappings": [
-                {
-                    "containerPort": 80,
-                    "hostPort": 80,
-                    "protocol": "tcp"
-                }
-            ],
-            "essential": true,
-            "environment": [],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "systemControls": []
-        },
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    {
+      "name": "simplebilling",
+      "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/simplebilling:latest",
+      "portMappings": [
         {
-            "name": "simplebilling",
-            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/simplebilling:latest",
-            "cpu": 512,
-            "memory": 1024,
-            "portMappings": [
-                {
-                    "containerPort": 8080,
-                    "hostPort": 8080,
-                    "protocol": "tcp"
-                },
-                {
-                    "containerPort": 8081,
-                    "hostPort": 8081,
-                    "protocol": "tcp"
-                }
-            ],
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
             "essential": true,
             "environment": [
                 {
                     "name": "ConnectionStrings__BillingDB",
                     "value": "Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True"
                 }
-            ],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "systemControls": []
-        },
+            ]
+
+    },
+    {
+      "name": "db",
+      "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/db:latest",
+      "portMappings": [
         {
-            "name": "db",
-            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/db",
-            "cpu": 1024,
-            "memory": 2048,
-            "portMappings": [
-                {
-                    "containerPort": 1433,
-                    "hostPort": 1433,
-                    "protocol": "tcp"
-                }
-            ],
+          "containerPort": 1433,
+          "hostPort": 1433,
+          "protocol": "tcp"
+        }
+      ],
             "essential": true,
             "environment": [
                 {
@@ -69,47 +53,17 @@
                     "name": "ACCEPT_EULA",
                     "value": "Y"
                 }
-            ],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "systemControls": []
-        }
-    ],
-    "family": "simplebilling-task",
-    "taskRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
-    "executionRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
-    "networkMode": "awsvpc",
-    "revision": 7,
-    "volumes": [],
-    "status": "ACTIVE",
-    "requiresAttributes": [
-        {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.task-iam-role"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-        },
-        {
-            "name": "ecs.capability.task-eni"
-        }
-    ],
-    "placementConstraints": [],
-    "compatibilities": [
-        "EC2",
-        "FARGATE"
-    ],
-    "requiresCompatibilities": [
-        "FARGATE"
-    ],
-    "cpu": "2048",
-    "memory": "4096",
-    "registeredAt": "2024-12-19T22:12:19.239Z",
-    "registeredBy": "arn:aws:iam::062983379312:user/MdAnisulHaque",
-    "tags": []
+            ]
+    }
+  ],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "2048",
+  "memory": "4096",
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": ["subnet-026f9eef95e965ca0", "subnet-0eacb8c61b96d86d2"],
+      "securityGroups": ["sg-0781118814f98a4d7"],
+      "assignPublicIp": "ENABLED"
+    }
+  }
 }
