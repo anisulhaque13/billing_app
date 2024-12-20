@@ -99,6 +99,5 @@
     "memory": "4096",
     "registeredAt": "2024-12-20T05:05:30.382Z",
     "registeredBy": "arn:aws:iam::062983379312:user/MdAnisulHaque",
-    "enableFaultInjection": false,
     "tags": []
 }
