@@ -27,11 +27,6 @@
                     "containerPort": 8080,
                     "hostPort": 8080,
                     "protocol": "tcp"
-                },
-                {
-                    "containerPort": 8081,
-                    "hostPort": 8081,
-                    "protocol": "tcp"
                 }
             ],
             "essential": true,
