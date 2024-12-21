@@ -35,7 +35,12 @@
                 }
             ],
             "essential": true,
-            "environment": [],
+            "environment": [
+                {
+                    "name": "ConnectionStrings__DefaultConnection",
+                    "value": "Server=db,1433;Database=YourDatabaseName;User Id=sa;Password=123+abc-456;"
+                }
+            ],
             "mountPoints": [],
             "volumesFrom": [],
             "systemControls": []
