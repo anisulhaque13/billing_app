@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:eu-north-1:062983379312:task-definition/simplebilling-task:13",
+    "family": "simplebilling-task",
     "containerDefinitions": [
         {
             "name": "angular-app",
@@ -72,37 +72,12 @@
             "systemControls": []
         }
     ],
-    "family": "simplebilling-task",
     "executionRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 13,
-    "volumes": [],
-    "status": "ACTIVE",
-    "requiresAttributes": [
-        {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-        },
-        {
-            "name": "ecs.capability.task-eni"
-        }
-    ],
-    "placementConstraints": [],
-    "compatibilities": [
-        "EC2",
-        "FARGATE"
-    ],
     "requiresCompatibilities": [
         "FARGATE"
     ],
     "cpu": "2048",
     "memory": "4096",
-    "registeredAt": "2024-12-20T05:05:30.382Z",
-    "registeredBy": "arn:aws:iam::062983379312:user/MdAnisulHaque",
-    "tags": []
+    "volumes": []
 }
