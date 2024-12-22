@@ -58,41 +58,7 @@
                 "timeout": 30,
                 "retries": 5
             }
-        },
-        {
-            "name": "simplebilling",
-            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/simplebilling:latest",
-            "cpu": 512,
-            "memory": 1024,
-            "portMappings": [
-                {
-                    "containerPort": 8080,
-                    "protocol": "tcp"
-                }
-            ],
-            "essential": true,
-            "environment": [
-                {
-                    "name": "ConnectionStrings__DefaultConnection",
-                    "value": "Server=db,1433;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True;"
-                }
-            ],
-            "logConfiguration": {
-                "logDriver": "awslogs",
-                "options": {
-                    "awslogs-group": "/ecs/simplebilling",
-                    "awslogs-region": "eu-north-1",
-                    "awslogs-stream-prefix": "simplebilling"
-                }
-            },
-            "dependsOn": [
-                {
-                    "containerName": "db",
-                    "condition": "HEALTHY"
-                }
-            ]
-        }
-    ],
+        }    ],
     "executionRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "requiresCompatibilities": [
