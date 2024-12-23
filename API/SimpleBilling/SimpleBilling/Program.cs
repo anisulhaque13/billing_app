@@ -31,7 +31,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
-        policy.WithOrigins("http://simplebilling-alb-1761924504.eu-north-1.elb.amazonaws.com") // Add your client app's URL
+        policy.WithOrigins(
+            "http://simplebilling-alb-1761924504.eu-north-1.elb.amazonaws.com")  // Add your client app's URL
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -42,7 +43,12 @@ builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
-app.UseCors("AllowAll");
+app.UseCors(policy =>
+    policy.AllowAnyHeader()
+          .AllowAnyMethod()
+          .SetIsOriginAllowed(origin => true) // Allow requests from any origin
+          .AllowCredentials());
+
 
 // Apply migrations with retry logic
 using (var scope = app.Services.CreateScope())
