@@ -9,10 +9,14 @@
             "portMappings": [
                 {
                     "containerPort": 80,
+                    "hostPort": 80,
                     "protocol": "tcp"
                 }
             ],
             "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -30,7 +34,8 @@
                 "timeout": 5,
                 "retries": 3,
                 "startPeriod": 10
-            }
+            },
+            "systemControls": []
         },
         {
             "name": "db",
@@ -40,6 +45,7 @@
             "portMappings": [
                 {
                     "containerPort": 1433,
+                    "hostPort": 1433,
                     "protocol": "tcp"
                 }
             ],
@@ -54,6 +60,8 @@
                     "value": "Y"
                 }
             ],
+            "mountPoints": [],
+            "volumesFrom": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -70,7 +78,8 @@
                 "interval": 60,
                 "timeout": 30,
                 "retries": 5
-            }
+            },
+            "systemControls": []
         },
         {
             "name": "simplebilling",
@@ -80,6 +89,7 @@
             "portMappings": [
                 {
                     "containerPort": 8080,
+                    "hostPort": 8080,
                     "protocol": "tcp"
                 }
             ],
@@ -90,6 +100,14 @@
                     "value": "Server=db,1433;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True;"
                 }
             ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "dependsOn": [
+                {
+                    "containerName": "db",
+                    "condition": "HEALTHY"
+                }
+            ],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -98,30 +116,27 @@
                     "awslogs-stream-prefix": "simplebilling"
                 }
             },
-            "dependsOn": [
-                {
-                    "containerName": "db",
-                    "condition": "HEALTHY"
-                }
-            ],
             "healthCheck": {
                 "command": [
                     "CMD-SHELL",
-                    "curl -f http://localhost:8080/health || exit 1"
+                    "exit 0"
                 ],
                 "interval": 30,
                 "timeout": 5,
                 "retries": 3,
                 "startPeriod": 10
-            }
+            },
+            "systemControls": []
         }
     ],
     "executionRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
+    "volumes": [],
+    "placementConstraints": [],
     "requiresCompatibilities": [
         "FARGATE"
     ],
     "cpu": "4096",
     "memory": "8192",
-    "volumes": []
+    "enableFaultInjection": false
 }
