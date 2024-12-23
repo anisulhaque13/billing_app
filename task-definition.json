@@ -20,6 +20,16 @@
                     "awslogs-region": "eu-north-1",
                     "awslogs-stream-prefix": "angular-app"
                 }
+            },
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL",
+                    "curl -f http://localhost/ || exit 1"
+                ],
+                "interval": 30,
+                "timeout": 5,
+                "retries": 3,
+                "startPeriod": 10
             }
         },
         {
@@ -52,16 +62,15 @@
                     "awslogs-stream-prefix": "db"
                 }
             },
-"healthCheck": {
-               "command": [
+            "healthCheck": {
+                "command": [
                     "CMD-SHELL",
                     "/opt/mssql-tools18/bin/sqlcmd -C -S 127.0.0.1 -U sa -P '123+abc-456' -Q 'SELECT 1'"
                 ],
-    "interval": 60,
-    "timeout": 30,
-    "retries": 5
-}
-
+                "interval": 60,
+                "timeout": 30,
+                "retries": 5
+            }
         },
         {
             "name": "simplebilling",
@@ -94,7 +103,17 @@
                     "containerName": "db",
                     "condition": "HEALTHY"
                 }
-            ]
+            ],
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL",
+                    "curl -f http://localhost:8080/health || exit 1"
+                ],
+                "interval": 30,
+                "timeout": 5,
+                "retries": 3,
+                "startPeriod": 10
+            }
         }
     ],
     "executionRoleArn": "arn:aws:iam::062983379312:role/ecsTaskExecutionRole",

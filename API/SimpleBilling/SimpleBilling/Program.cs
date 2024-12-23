@@ -25,12 +25,13 @@ builder.WebHost.ConfigureKestrel(options =>
     //});
 });
 
-// Add CORS policy
+// Define CORS policy
+const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("http://simplebilling-alb-1761924504.eu-north-1.elb.amazonaws.com") // Add your client app's URL
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
