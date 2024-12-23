@@ -137,6 +137,5 @@
         "FARGATE"
     ],
     "cpu": "4096",
-    "memory": "8192",
-    "enableFaultInjection": false
+    "memory": "8192"
 }
