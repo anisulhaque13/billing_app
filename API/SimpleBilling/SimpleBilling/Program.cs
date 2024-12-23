@@ -25,7 +25,7 @@ builder.WebHost.ConfigureKestrel(options =>
     //});
 });
 
-
+// Add CORS policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -36,10 +36,13 @@ builder.Services.AddCors(options =>
     });
 });
 
-
+// Add a basic health check service
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
+
 app.UseCors("AllowAll");
+
 // Apply migrations with retry logic
 using (var scope = app.Services.CreateScope())
 {
@@ -74,6 +77,12 @@ using (var scope = app.Services.CreateScope())
 // Configure middleware
 app.UseSwagger();
 app.UseSwaggerUI();
+
+// Use health checks middleware
+app.UseHealthChecks("/health");
+
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();
