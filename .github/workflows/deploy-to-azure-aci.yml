@@ -1,89 +1,51 @@
-name: Deploy to Azure ACI
+name: Build and Deploy to Azure App Service
 
 on:
   push:
     branches:
-      - azure  # Triggers the workflow when pushing to the 'azure' branch
+      - azure  # Trigger on changes to the 'azure' branch
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Check out the repository
-    - name: Checkout repository
+    # Step 1: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Login to Azure CLI
+    # Step 2: Login to Azure
     - name: Login to Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     # Step 3: Login to Azure Container Registry (ACR)
-    - name: Login to Azure Container Registry (ACR)
+    - name: Login to ACR
       run: |
         az acr login --name ${{ secrets.ACR_NAME }}
 
-    # Step 4: Build, Tag, and Push Angular App Image
-    - name: Build and Push Angular App Image
+    # Step 4: Build and Push Angular App
+    - name: Build and Push Angular App
       run: |
         docker build -t angular-app ./UI/SimpleBilling.web
         docker tag angular-app:latest ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest
 
-    # Step 5: Build, Tag, and Push Backend Image
-    - name: Build and Push Backend Image
+    # Step 5: Build and Push Backend API
+    - name: Build and Push API
       run: |
-        docker build -t simplebilling ./API/SimpleBilling/SimpleBilling
+        docker build -t simplebilling ./API/SimpleBilling
         docker tag simplebilling:latest ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
 
-    # Step 6: Build, Tag, and Push SQL Server Image (Optional)
-    - name: Build and Push SQL Server Image
-      run: |
-        docker pull mcr.microsoft.com/mssql/server:2019-latest
-        docker tag mcr.microsoft.com/mssql/server:2019-latest ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
-        docker push ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
-
-     # Step 7: Deploy to Azure Container Instances (ACI)
-    - name: Deploy to ACI
-      run: |
-        # Deploy Angular App
-        az container create \
-          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-          --name angular-app-container \
-          --image ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest \
-          --registry-login-server ${{ secrets.ACR_NAME }}.azurecr.io \
-          --registry-username ${{ secrets.ACR_USERNAME }} \
-          --registry-password ${{ secrets.ACR_PASSWORD }} \
-          --dns-name-label angular-app-${{ github.run_number }} \
-          --ports 80 \
-          --cpu 0.25 \
-          --memory 0.25
-
-        # Deploy Backend API
-        az container create \
-          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-          --name backend-container \
-          --image ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest \
-          --registry-login-server ${{ secrets.ACR_NAME }}.azurecr.io \
-          --registry-username ${{ secrets.ACR_USERNAME }} \
-          --registry-password ${{ secrets.ACR_PASSWORD }} \
-          --dns-name-label backend-${{ github.run_number }} \
-          --ports 5000 \
-          --cpu 0.25 \
-          --memory 0.25
-
-        # Deploy SQL Server (Optional)
-        az container create \
-          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-          --name sql-server-container \
-          --image ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest \
-          --registry-login-server ${{ secrets.ACR_NAME }}.azurecr.io \
-          --registry-username ${{ secrets.ACR_USERNAME }} \
-          --registry-password ${{ secrets.ACR_PASSWORD }} \
-          --dns-name-label sql-server-${{ github.run_number }} \
-          --ports 1433 \
-          --cpu 0.5 \
-          --memory 3.0
+    # Step 6: Deploy to Azure App Service
+    - name: Deploy to Azure App Service
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: simplebilling  # Replace with your App Service name
+        slot-name: Production
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: |
+          ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest
+          ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
