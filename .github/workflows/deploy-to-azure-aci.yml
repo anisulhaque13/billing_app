@@ -46,7 +46,7 @@ jobs:
         docker tag mcr.microsoft.com/mssql/server:2019-latest ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
 
-    # Step 7: Deploy to Azure Container Instances (ACI)
+     # Step 7: Deploy to Azure Container Instances (ACI)
     - name: Deploy to ACI
       run: |
         # Deploy Angular App
@@ -58,9 +58,10 @@ jobs:
           --registry-username ${{ secrets.ACR_USERNAME }} \
           --registry-password ${{ secrets.ACR_PASSWORD }} \
           --dns-name-label angular-app-${{ github.run_number }} \
-          --ports 80
+          --ports 80 \
           --cpu 1 \
           --memory 1.0
+
         # Deploy Backend API
         az container create \
           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
@@ -70,7 +71,7 @@ jobs:
           --registry-username ${{ secrets.ACR_USERNAME }} \
           --registry-password ${{ secrets.ACR_PASSWORD }} \
           --dns-name-label backend-${{ github.run_number }} \
-          --ports 5000
+          --ports 5000 \
           --cpu 1 \
           --memory 1.0
 
@@ -83,6 +84,6 @@ jobs:
           --registry-username ${{ secrets.ACR_USERNAME }} \
           --registry-password ${{ secrets.ACR_PASSWORD }} \
           --dns-name-label sql-server-${{ github.run_number }} \
-          --ports 1433
+          --ports 1433 \
           --cpu 1 \
           --memory 2.0
