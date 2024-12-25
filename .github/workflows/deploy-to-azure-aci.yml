@@ -60,7 +60,7 @@ jobs:
           --dns-name-label angular-app-${{ github.run_number }} \
           --ports 80 \
           --cpu 1 \
-          --memory 1.0
+          --memory 0.5
 
         # Deploy Backend API
         az container create \
@@ -73,7 +73,7 @@ jobs:
           --dns-name-label backend-${{ github.run_number }} \
           --ports 5000 \
           --cpu 1 \
-          --memory 1.0
+          --memory 0.5
 
         # Deploy SQL Server (Optional)
         az container create \
@@ -86,4 +86,4 @@ jobs:
           --dns-name-label sql-server-${{ github.run_number }} \
           --ports 1433 \
           --cpu 1 \
-          --memory 2.0
+          --memory 3.0
