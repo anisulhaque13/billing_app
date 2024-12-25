@@ -7,8 +7,6 @@ services:
       - "7000:80"
     depends_on:
       - api
-    networks:
-      - backend
 
   api:
     image: simplebilling.azurecr.io/simplebilling:latest
@@ -19,8 +17,6 @@ services:
       - "5000:8080"
     depends_on:
       - db
-    networks:
-      - backend
 
   db:
     image: simplebilling.azurecr.io/sql-server:latest
@@ -29,15 +25,3 @@ services:
       - SA_PASSWORD=123+abc-456
     ports:
       - "1433:1433"
-    networks:
-      - backend
-    volumes:
-      - mssql-data:/var/opt/mssql
-
-networks:
-  backend:
-    driver: bridge
-
-volumes:
-  mssql-data:
-    driver: local
