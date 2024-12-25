@@ -35,7 +35,7 @@ jobs:
     # Step 5: Build and Push Backend API
     - name: Build and Push Backend API
       run: |
-        docker build -t simplebilling ./API/SimpleBilling
+        docker build -t simplebilling ./API/SimpleBilling/SimpleBilling
         docker tag simplebilling:latest ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
 
