@@ -59,7 +59,8 @@ jobs:
           --registry-password ${{ secrets.ACR_PASSWORD }} \
           --dns-name-label angular-app-${{ github.run_number }} \
           --ports 80
-
+          --cpu 1 \
+          --memory 0.5
         # Deploy Backend API
         az container create \
           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
@@ -70,6 +71,8 @@ jobs:
           --registry-password ${{ secrets.ACR_PASSWORD }} \
           --dns-name-label backend-${{ github.run_number }} \
           --ports 5000
+          --cpu 1 \
+          --memory 0.5
 
         # Deploy SQL Server (Optional)
         az container create \
@@ -81,3 +84,5 @@ jobs:
           --registry-password ${{ secrets.ACR_PASSWORD }} \
           --dns-name-label sql-server-${{ github.run_number }} \
           --ports 1433
+          --cpu 1 \
+          --memory 2.0
