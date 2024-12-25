@@ -5,20 +5,9 @@ namespace SimpleBilling.Models.Domain
 {
     public class OrderDetail
     {
-        public OrderDetail(Guid itemId, string itemName, Guid categoryId, string categoryName, decimal quantity, decimal price, Guid orderId)
+        public OrderDetail()
         {
-            Id = Guid.NewGuid(); // Automatically generate a new unique ID
-            ItemId = itemId;
-            ItemName = itemName;
-            CategoryId = categoryId;
-            CategoryName = categoryName;
-            Quantity = quantity;
-            Price = price;
-            OrderId = orderId;
-            // Initialize navigation properties
-            Item = new Item();       // Replace with default initialization if applicable
-            Category = new Category(); // Replace with default initialization if applicable
-            Order = new Order();     // Replace with default initialization if applicable
+                
         }
         [Display(Name = "Order Detail Id")]
         public Guid Id { get; set; }

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 import { Item } from '../../models/item.model';
 import { Category } from '../../models/category.model';
 import { ApiService } from '../../app/services/api.service'; // Import ApiService
@@ -109,22 +109,25 @@ export class ItemComponent {
     this.selectedItem = null;
   }
 
+
   private getItems(): Observable<Item[]> {
-    return this.http.get<Item[]>(this.apiService.getUrl('/api/Item'))
+    return this.http.get<any>(this.apiService.getUrl('/api/Item'))
       .pipe(
-        catchError((error) => {
-          console.error('Error fetching items:', error);
-          alert('Failed to fetch items.');
+        map((response) => response.$values || []), // Extract $values array
+        catchError((err) => {
+          console.error('Error fetching categories:', err);
+          alert('Failed to fetch categories.');
           return of([]); // Return an empty array on error
         })
       );
   }
 
   private getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.apiService.getUrl('/api/Category'))
+    return this.http.get<any>(this.apiService.getUrl('/api/Category'))
       .pipe(
-        catchError((error) => {
-          console.error('Error fetching categories:', error);
+        map((response) => response.$values || []), // Extract $values array
+        catchError((err) => {
+          console.error('Error fetching categories:', err);
           alert('Failed to fetch categories.');
           return of([]); // Return an empty array on error
         })
