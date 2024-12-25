@@ -1,0 +1,83 @@
+name: Deploy to Azure ACI
+
+on:
+  push:
+    branches:
+      - azure  # Triggers the workflow when pushing to the 'azure' branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Login to Azure CLI
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    # Step 3: Login to Azure Container Registry (ACR)
+    - name: Login to Azure Container Registry (ACR)
+      run: |
+        az acr login --name ${{ secrets.ACR_NAME }}
+
+    # Step 4: Build, Tag, and Push Angular App Image
+    - name: Build and Push Angular App Image
+      run: |
+        docker build -t angular-app ./UI/SimpleBilling.web
+        docker tag angular-app:latest ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest
+
+    # Step 5: Build, Tag, and Push Backend Image
+    - name: Build and Push Backend Image
+      run: |
+        docker build -t simplebilling ./API/SimpleBilling/SimpleBilling
+        docker tag simplebilling:latest ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
+
+    # Step 6: Build, Tag, and Push SQL Server Image (Optional)
+    - name: Build and Push SQL Server Image
+      run: |
+        docker pull mcr.microsoft.com/mssql/server:2019-latest
+        docker tag mcr.microsoft.com/mssql/server:2019-latest ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
+
+    # Step 7: Deploy to Azure Container Instances (ACI)
+    - name: Deploy to ACI
+      run: |
+        # Deploy Angular App
+        az container create \
+          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+          --name angular-app-container \
+          --image ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest \
+          --registry-login-server ${{ secrets.ACR_NAME }}.azurecr.io \
+          --registry-username ${{ secrets.ACR_USERNAME }} \
+          --registry-password ${{ secrets.ACR_PASSWORD }} \
+          --dns-name-label angular-app-${{ github.run_number }} \
+          --ports 80
+
+        # Deploy Backend API
+        az container create \
+          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+          --name backend-container \
+          --image ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest \
+          --registry-login-server ${{ secrets.ACR_NAME }}.azurecr.io \
+          --registry-username ${{ secrets.ACR_USERNAME }} \
+          --registry-password ${{ secrets.ACR_PASSWORD }} \
+          --dns-name-label backend-${{ github.run_number }} \
+          --ports 5000
+
+        # Deploy SQL Server (Optional)
+        az container create \
+          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+          --name sql-server-container \
+          --image ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest \
+          --registry-login-server ${{ secrets.ACR_NAME }}.azurecr.io \
+          --registry-username ${{ secrets.ACR_USERNAME }} \
+          --registry-password ${{ secrets.ACR_PASSWORD }} \
+          --dns-name-label sql-server-${{ github.run_number }} \
+          --ports 1433
