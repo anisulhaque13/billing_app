@@ -3,14 +3,14 @@ name: Build and Deploy to Azure App Service
 on:
   push:
     branches:
-      - azure  # Trigger on changes to the 'azure' branch
+      - azure
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout repository
+    # Step 1: Checkout code
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -32,14 +32,21 @@ jobs:
         docker tag angular-app:latest ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest
 
-    # Step 5: Build and Push Backend API
+    # Step 5: Build and Push API
     - name: Build and Push API
       run: |
         docker build -t simplebilling ./API/SimpleBilling/SimpleBilling
         docker tag simplebilling:latest ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
 
-    # Step 6: Deploy to Azure App Service
+    # Step 6: Pull and Push SQL Server Image
+    - name: Pull and Push SQL Server
+      run: |
+        docker pull mcr.microsoft.com/mssql/server:2019-latest
+        docker tag mcr.microsoft.com/mssql/server:2019-latest ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
+
+    # Step 7: Deploy to Azure App Service using Docker Compose
     - name: Deploy to Azure App Service
       uses: azure/webapps-deploy@v2
       with:
@@ -49,3 +56,5 @@ jobs:
         images: |
           ${{ secrets.ACR_NAME }}.azurecr.io/angular-app:latest
           ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
+          ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
+        package: ./docker-compose.yml
