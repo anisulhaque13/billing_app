@@ -60,7 +60,7 @@ jobs:
           --dns-name-label angular-app-${{ github.run_number }} \
           --ports 80
           --cpu 1 \
-          --memory 0.5
+          --memory 1.0
         # Deploy Backend API
         az container create \
           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
@@ -72,7 +72,7 @@ jobs:
           --dns-name-label backend-${{ github.run_number }} \
           --ports 5000
           --cpu 1 \
-          --memory 0.5
+          --memory 1.0
 
         # Deploy SQL Server (Optional)
         az container create \
