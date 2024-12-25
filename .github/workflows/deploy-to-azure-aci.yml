@@ -3,7 +3,7 @@ name: Build and Deploy Multi-Container App to Azure
 on:
   push:
     branches:
-      - azure  # Replace with your branch name
+      - azure
 
 jobs:
   build-and-deploy:
@@ -39,24 +39,23 @@ jobs:
         docker tag simplebilling:latest ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/simplebilling:latest
 
-    # Step 6: Pull and Push SQL Server Image (Optional)
+    # Step 6: Pull and Push SQL Server Image
     - name: Pull and Push SQL Server
       run: |
         docker pull mcr.microsoft.com/mssql/server:2019-latest
         docker tag mcr.microsoft.com/mssql/server:2019-latest ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/sql-server:latest
 
-# Step 7: Prepare Docker Compose Package
-- name: Prepare Docker Compose Package
-  run: |
-    zip docker-compose.zip docker-compose.yml
+    # Step 7: Prepare Docker Compose Package
+    - name: Prepare Docker Compose Package
+      run: |
+        zip docker-compose.zip docker-compose.yml
 
-# Step 8: Deploy to Azure App Service
-- name: Deploy to Azure App Service
-  uses: azure/webapps-deploy@v2
-  with:
-    app-name: simplebilling
-    slot-name: Production
-    publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-    package: ./docker-compose.zip
-
+    # Step 8: Deploy to Azure App Service
+    - name: Deploy to Azure App Service
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: simplebilling
+        slot-name: Production
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ./docker-compose.zip
