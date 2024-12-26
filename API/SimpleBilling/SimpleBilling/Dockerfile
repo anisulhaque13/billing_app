@@ -3,6 +3,14 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 8080
 
+# Install ICU for globalization support
+RUN apt-get update && apt-get install -y \
+    libicu-dev && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set the environment variable to disable invariant mode
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
 
 # Build image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build

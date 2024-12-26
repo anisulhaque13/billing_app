@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,11 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers()
-        .AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-            options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
-        });
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -38,9 +38,10 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     serverOptions.ListenAnyIP(8080); 
 });
 
+// Build the application
 var app = builder.Build();
 
-// Apply migrations with retry logic
+// Apply database migrations
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -75,7 +76,7 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-app.UseCors(); // Use the default CORS policy configured earlier
+app.UseCors(); // Apply the default CORS policy
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
