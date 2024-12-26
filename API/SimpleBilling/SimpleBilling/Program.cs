@@ -45,8 +45,6 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 // Build the application
 var app = builder.Build();
 
-// Health check route for Azure
-app.MapGet("/health", () => Results.Ok("Healthy"));
 
 // Apply database migrations
 using (var scope = app.Services.CreateScope())

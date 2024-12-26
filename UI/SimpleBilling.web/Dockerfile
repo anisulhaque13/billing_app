@@ -20,8 +20,8 @@ FROM nginx:alpine AS production-stage
 # Copy the built Angular application to Nginx's default HTML directory
 COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/html
 
-# Expose port 7000
-EXPOSE 7000
+# Expose port 80
+EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
