@@ -21,28 +21,31 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BillingDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BillingDB")));
 
-// Configure CORS
+// Configure CORS for Azure deployment (example)
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("https://simplebilling.azurewebsites.net") // Replace with your actual frontend URL
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
 });
 
-// Configure Kestrel
+// Configure Kestrel to listen on port 443 for HTTPS (Azure handles SSL termination)
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-    serverOptions.ListenAnyIP(8090); 
+    serverOptions.ListenAnyIP(443); // Azure will handle SSL termination, you listen for HTTPS on 443
+    serverOptions.ConfigureHttpsDefaults(httpsOptions =>
+    {
+        // You can also configure SSL options here if needed
+    });
 });
-
-
 
 // Build the application
 var app = builder.Build();
 
+// Health check route for Azure
 app.MapGet("/health", () => Results.Ok("Healthy"));
 
 // Apply database migrations
@@ -79,8 +82,10 @@ using (var scope = app.Services.CreateScope())
 // Configure middleware
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseHttpsRedirection();
-app.UseCors(); // Apply the default CORS policy
+app.UseHttpsRedirection();  // Ensure requests are redirected to HTTPS
+app.UseCors();               // Apply the default CORS policy
 app.UseAuthorization();
 app.MapControllers();
+
+// Run the application
 app.Run();
