@@ -38,8 +38,12 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     serverOptions.ListenAnyIP(8080); 
 });
 
+
+
 // Build the application
 var app = builder.Build();
+
+app.MapGet("/health", () => Results.Ok("Healthy"));
 
 // Apply database migrations
 using (var scope = app.Services.CreateScope())
