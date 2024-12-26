@@ -1,22 +1,10 @@
-# version: '3.4'
-
-# services:
-#   simplebilling:
-#     image: ${DOCKER_REGISTRY-}simplebilling
-#     build:
-#       context: .
-#       dockerfile: SimpleBilling/Dockerfile
-
-
-
 version: '3.4'
 
 services:
   simplebilling:
-    image: simplebilling.azurecr.io/simplebilling:latest
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
-    ports:
-      - "5000:8080"
+    image: ${DOCKER_REGISTRY-}simplebilling
+    build:
+      context: .
+      dockerfile: SimpleBilling/Dockerfile
+
 
