@@ -23,7 +23,7 @@ builder.Services.AddDbContext<BillingDBContext>(options =>
 // Configure Kestrel
 builder.WebHost.ConfigureKestrel(options =>
 {
-    var port = Environment.GetEnvironmentVariable("PORT") ?? "8081";
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
     options.ListenAnyIP(int.Parse(port)); // HTTP
     //options.ListenAnyIP(8081, listenOptions =>
     //{
