@@ -3,8 +3,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 8081
 
-# Copy the HTTPS certificate
-COPY ["https-dev-cert.pfx", "/app/certs/https-dev-cert.pfx"]
 
 # Build image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
