@@ -3,13 +3,11 @@ version: '3.4'
 services:
   angular-app:
     image: simplebilling.azurecr.io/angular-app:latest  # Use the image from Azure Container Registry
-    ports:
-      - "80:80"  # Expose Angular on port 80
-    environment:
-      - API_URL=https://simplebilling.azurewebsites.net/api 
     depends_on:
       - simplebilling  # Ensure the backend starts first
     restart: always  # Automatically restart if the container stops
+    environment:
+      - API_URL=https://simplebilling.azurewebsites.net/api 
     networks:
       - backend
 
@@ -22,7 +20,7 @@ services:
 
     depends_on:
       - db  # Wait for the database service to start
-   # restart: always  # Automatically restart if the container stops
+    restart: always  # Automatically restart if the container stops
     networks:
       - backend
 
@@ -38,7 +36,7 @@ services:
       - backend
     volumes:
       - mssql-data:/var/opt/mssql  # Persistent volume for database storage
-    restart: always  # Automatically restart if the container stops
+    #restart: always  # Automatically restart if the container stops
 
 networks:
   backend:
