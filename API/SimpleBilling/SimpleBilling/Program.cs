@@ -23,7 +23,8 @@ builder.Services.AddDbContext<BillingDBContext>(options =>
 // Configure Kestrel
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(8082); // HTTP
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "8081";
+    options.ListenAnyIP(int.Parse(port)); // HTTP
     //options.ListenAnyIP(8081, listenOptions =>
     //{
     //    listenOptions.UseHttps("/https/https-dev-cert.pfx", "121");
