@@ -14,7 +14,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
     ports:
-      - "5000:8080"
+      - "5001:8081"
     depends_on:
       - db
 
