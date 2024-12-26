@@ -58,4 +58,4 @@ jobs:
         app-name: simplebilling
         slot-name: Production
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ./API/SimpleBilling/docker-compose.zip
+        package: ./docker-compose.zip
