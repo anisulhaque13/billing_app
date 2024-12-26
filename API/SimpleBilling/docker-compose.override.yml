@@ -40,11 +40,6 @@ services:
     volumes:
       - mssql-data:/var/opt/mssql  # Persistent volume for database storage
     restart: always  # Automatically restart if the container stops
-    healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 123+abc-456 -Q 'SELECT 1'"]
-      interval: 10s  # Time between checks
-      timeout: 10s   # Timeout for healthcheck
-      retries: 5     # Retry count before marking the container as unhealthy
 
 networks:
   backend:
