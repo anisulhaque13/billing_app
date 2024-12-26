@@ -23,6 +23,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
+    depends_on:
+      - db
     networks:
       - backend
 
@@ -35,6 +37,11 @@ services:
       - backend
     volumes:
       - mssql-data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "123+abc-456", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 networks:
   backend:
