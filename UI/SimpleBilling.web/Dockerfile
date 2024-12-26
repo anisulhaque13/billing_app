@@ -29,5 +29,3 @@ EXPOSE 80
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
 
-
-D:\MS\Thesis\Attemp_2\Asp.netCoreWithAngular\UI\SimpleBilling.web\nginx.conf
