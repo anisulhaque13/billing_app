@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,15 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BillingDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BillingDB")));
 
-// Configure Kestrel
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.ListenAnyIP(8080);
-});
-
-var app = builder.Build();
-
-
+// Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -39,7 +32,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Configure Kestrel
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(8080); 
+});
 
+var app = builder.Build();
 
 // Apply migrations with retry logic
 using (var scope = app.Services.CreateScope())
@@ -76,7 +75,7 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+app.UseCors(); // Use the default CORS policy configured earlier
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
