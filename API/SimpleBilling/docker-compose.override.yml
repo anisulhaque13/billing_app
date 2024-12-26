@@ -16,7 +16,7 @@ services:
     environment:
       - ASPNETCORE_URLS=https://+:8080
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/https-dev-cert.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=121- 
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=121
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
     ports:

@@ -21,12 +21,13 @@ builder.Services.AddDbContext<BillingDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BillingDB")));
 
 // Configure Kestrel
-builder.WebHost.ConfigureKestrel(options =>
+builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-    var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-    options.ListenAnyIP(int.Parse(port), listenOptions =>
+    serverOptions.ListenAnyIP(8080, listenOptions =>
     {
-        listenOptions.UseHttps("/https/https-dev-cert.pfx", "121");
+        var certPath = Environment.GetEnvironmentVariable("CERTIFICATE_PATH");
+        var certPassword = Environment.GetEnvironmentVariable("CERTIFICATE_PASSWORD");
+        listenOptions.UseHttps(certPath, certPassword);
     });
 });
 
