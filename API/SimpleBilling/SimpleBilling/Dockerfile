@@ -4,7 +4,7 @@ WORKDIR /app
 EXPOSE 8081
 
 # Copy the HTTPS certificate
-COPY API/SimpleBilling/https-dev-cert.pfx /app/certs/https-dev-cert.pfx
+COPY ./API/SimpleBilling/https-dev-cert.pfx /app/certs/https-dev-cert.pfx
 
 # Build image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
