@@ -1,7 +1,7 @@
 # Base image for running the app
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 8081
+EXPOSE 8080
 
 
 # Build image

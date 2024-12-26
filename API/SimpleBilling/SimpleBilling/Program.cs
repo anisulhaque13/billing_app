@@ -23,12 +23,7 @@ builder.Services.AddDbContext<BillingDBContext>(options =>
 // Configure Kestrel
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-    serverOptions.ListenAnyIP(8080, listenOptions =>
-    {
-        var certPath = Environment.GetEnvironmentVariable("CERTIFICATE_PATH");
-        var certPassword = Environment.GetEnvironmentVariable("CERTIFICATE_PASSWORD");
-        listenOptions.UseHttps(certPath, certPassword);
-    });
+    serverOptions.ListenAnyIP(8080);
 });
 
 var app = builder.Build();
