@@ -23,7 +23,7 @@ builder.Services.AddDbContext<BillingDBContext>(options =>
 // Configure Kestrel
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(8081); // HTTP
+    options.ListenAnyIP(8082); // HTTP
     //options.ListenAnyIP(8081, listenOptions =>
     //{
     //    listenOptions.UseHttps("/https/https-dev-cert.pfx", "121");
