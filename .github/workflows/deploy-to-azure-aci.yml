@@ -49,7 +49,7 @@ jobs:
     # Step 7: Prepare Docker Compose Package
     - name: Prepare Docker Compose Package
       run: |
-        zip docker-compose.zip /API/SimpleBilling/docker-compose.yml
+        zip docker-compose.zip ./API/SimpleBilling/docker-compose.yml
 
     # Step 8: Deploy to Azure App Service
     - name: Deploy to Azure App Service
