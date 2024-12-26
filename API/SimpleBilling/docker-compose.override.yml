@@ -14,11 +14,15 @@ services:
   simplebilling:
     image: simplebilling.azurecr.io/simplebilling:latest  # Use the image from Azure Container Registry
     environment:
-      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_URLS=https://+:8080
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/https-dev-cert.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=121- 
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
     ports:
-      - "8080:8080"  # Map backend HTTP port
+      - "8080:8080"  # Map backend HTTPS port
+    volumes:
+      - ./https-dev-cert.pfx:/https/https-dev-cert.pfx:ro
     depends_on:
       - db  # Wait for the database service to start
     restart: always  # Automatically restart if the container stops
