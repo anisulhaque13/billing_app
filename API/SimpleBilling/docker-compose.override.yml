@@ -1,25 +1,14 @@
 version: '3.4'
 
 services:
-  nginx:
-    image: nginx:alpine
-    depends_on:
-      - angular-app
-      - simplebilling
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Custom Nginx configuration
-    ports:
-      - "80:80"  # Expose Nginx on port 80 for Azure
-    networks:
-      - backend
-    restart: always
-
   angular-app:
     image: simplebilling.azurecr.io/angular-app:latest  # Use the image from Azure Container Registry
     depends_on:
       - simplebilling  # Ensure the backend starts first
     environment:
       - API_URL=http://simplebilling/api  # Internal communication with the backend
+    ports:
+      - "80:80" 
     networks:
       - backend
     restart: always
