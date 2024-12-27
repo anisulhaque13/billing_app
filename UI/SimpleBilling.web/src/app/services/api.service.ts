@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'  // Makes the service available application-wide
 })
 export class ApiService {
-  baseUrl = 'https://simplebilling.azurewebsites.net';  // Global URL
+  baseUrl = 'https://simplebilling.azurewebsites.net';  // Global URL for azure
 
   getUrl(endpoint: string): string {
     return `${this.baseUrl}${endpoint}`;
