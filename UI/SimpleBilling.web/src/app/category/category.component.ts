@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
-import { catchError } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { Category } from '../../models/category.model';
 import { ApiService } from '../../app/services/api.service';
 
@@ -80,13 +80,15 @@ export class CategoryComponent implements OnInit {
   }
 
   private getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.apiService.getUrl('/api/Category'))
+    return this.http.get<any>(this.apiService.getUrl('/api/Category'))
       .pipe(
+        map((response) => response.$values || []), // Extract $values array
         catchError((err) => {
           console.error('Error fetching categories:', err);
           alert('Failed to fetch categories.');
-          throw err;
+          return of([]); // Return an empty array on error
         })
       );
   }
+
 }

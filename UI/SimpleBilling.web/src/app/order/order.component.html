@@ -1,1 +1,146 @@
-<p style="height: 100vh;">order works!</p>
+<div class="order-container">
+  <!-- Form Section -->
+  <div class="form-section">
+    <h2 class="mb-3">Add Order</h2>
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      <!-- Order Date -->
+      <div class="form-group mb-3">
+        <label for="orderDate">Order Date</label>
+        <input type="date"
+               id="orderDate"
+               formControlName="orderDate"
+               class="form-control"
+               placeholder="Select order date"
+               required />
+      </div>
+
+      <!-- Order Details -->
+      <div formArrayName="orderDetails" class="order-details-section">
+        <h3 class="mb-3">Order Details</h3>
+        <div *ngFor="let detail of orderDetails.controls; let i = index"
+             [formGroupName]="i"
+             class="order-detail-row row mb-3">
+          <div class="form-group col-md-3">
+            <label for="categoryId-{{ i }}">Category</label>
+            <select id="categoryId-{{ i }}"
+                    formControlName="categoryId"
+                    class="form-control"
+                    (change)="loadItems($event, i)">
+              <option value="" disabled>Select a category</option>
+              <option *ngFor="let category of categories"
+                      [value]="category?.id">
+                {{ category?.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-3">
+            <label for="itemId-{{ i }}">Item</label>
+            <select id="itemId-{{ i }}"
+                    formControlName="itemId"
+                    class="form-control">
+              <option value="" disabled>Select an item</option>
+              <option *ngFor="let item of (itemsForCategory[i] | async)"
+                      [value]="item?.id">
+                {{ item?.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-2">
+            <label for="quantity-{{ i }}">Quantity</label>
+            <input type="number"
+                   id="quantity-{{ i }}"
+                   formControlName="quantity"
+                   min="1"
+                   class="form-control"
+                   placeholder="Qty"
+                   required />
+          </div>
+
+          <div class="form-group col-md-2">
+            <label for="price-{{ i }}">Price</label>
+            <input type="number"
+                   id="price-{{ i }}"
+                   formControlName="price"
+                   min="0.01"
+                   step="0.01"
+                   class="form-control"
+                   placeholder="Price"
+                   required />
+          </div>
+
+          <div class="action-buttons col-md-2 d-flex align-items-end">
+            <button type="button"
+                    (click)="removeOrderDetail(i)"
+                    class="btn btn-danger w-100">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Order Detail -->
+      <div class="form-actions mb-3">
+        <button type="button"
+                (click)="addOrderDetail()"
+                class="btn btn-secondary">
+          Add Order Detail
+        </button>
+      </div>
+
+      <!-- Save Order -->
+      <div class="mt-2">
+        <button type="submit"
+                [disabled]="orderForm.invalid"
+                class="btn btn-primary bg-slate-800 text-white px-4 py-2 rounded-sm w-full">
+          Save Order
+        </button>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="error-message text-danger mt-2">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+
+  <!-- Order List Section -->
+  <div class="list-section mt-4">
+    <h2 class="mb-3">Order List</h2>
+
+    <div *ngIf="orders.length > 0; else noOrdersFound">
+      <div *ngFor="let order of orders" class="order-container mb-4 border rounded p-4 bg-slate-100">
+        <!-- Order Date -->
+        <div class="order-date mb-2">
+          <p class="font-bold text-lg">Date: <span class="font-normal">{{ order.orderDate | date:'shortDate' }}</span></p>
+        </div>
+
+        <!-- Order Details -->
+        <div class="order-details">
+          <div class="detail-header font-semibold grid grid-cols-5 gap-4 pb-2 border-b">
+            <div>Category</div>
+            <div>Item</div>
+            <div>Quantity</div>
+            <div>Price</div>
+            <div>Total</div>
+          </div>
+          <div *ngFor="let detail of order.orderDetails" class="detail-row grid grid-cols-5 gap-4 py-2 border-b last:border-none">
+            <div>{{ detail.categoryName || 'N/A' }}</div>
+            <div>{{ detail.itemName || 'N/A' }}</div>
+            <div>{{ detail.quantity }}</div>
+            <div>{{ detail.price | currency }}</div>
+            <div>{{ detail.quantity * detail.price | currency }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noOrdersFound>
+      <div class="text-center text-muted mt-2">
+        No orders found.
+      </div>
+    </ng-template>
+  </div>
+
+</div>

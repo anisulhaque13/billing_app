@@ -17,24 +17,29 @@ namespace SimpleBilling.Controllers
             this.dBContext = dBContext;
         }
 
-
         [HttpGet]
-        public IActionResult GetAllItems()
+        public IActionResult GetAllItems([FromQuery] Guid? categoryId)
         {
-            var items = dBContext.Items
-                .Include(i => i.Category) // Assuming there's a navigation property
-                .Select(item => new ItemResponseDTO
-                {
-                    Id = item.Id,
-                    Name = item.Name,
-                    CategoryId = item.Category.Id,
-                    CategoryName = item.Category.Name, // Map the category name
-                    Unit = item.Unit,
-                    Price = item.Price
-                }).ToList();
+            var query = dBContext.Items.Include(i => i.Category).AsQueryable();
+
+            if (categoryId.HasValue)
+            {
+                query = query.Where(item => item.CategoryId == categoryId.Value);
+            }
+
+            var items = query.Select(item => new ItemResponseDTO
+            {
+                Id = item.Id,
+                Name = item.Name,
+                CategoryId = item.Category.Id,
+                CategoryName = item.Category.Name,
+                Unit = item.Unit,
+                Price = item.Price
+            }).ToList();
 
             return Ok(items);
         }
+
 
         [HttpPost]
         public IActionResult AddItem(AddItemRequestDTO request)
