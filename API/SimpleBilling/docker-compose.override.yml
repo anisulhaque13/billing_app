@@ -6,7 +6,7 @@ services:
     depends_on:
       - simplebilling  # Ensure the backend starts first
     environment:
-      - API_URL=http://simplebilling/api  # Internal communication with the backend
+      - API_URL=http://simplebilling  # Internal communication with the backend
     ports:
       - "80:80" 
     networks:
