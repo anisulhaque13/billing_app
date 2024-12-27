@@ -24,7 +24,7 @@ COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/ht
 COPY nginx.conf /etc/nginx/nginx.conf  # Ensure the custom Nginx configuration file is placed in the correct location.
 
 # Expose port 80
-EXPOSE 80  # Expose port 80 for the application.
+EXPOSE 80  
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]  # Start Nginx in the foreground to keep the container running.
