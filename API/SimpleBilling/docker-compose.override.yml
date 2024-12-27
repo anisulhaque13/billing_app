@@ -1,31 +1,49 @@
 version: '3.4'
 
 services:
-
   angular-app:
-    image: simplebilling.azurecr.io/angular-app:latest
+    image: simplebilling.azurecr.io/angular-app:latest  # Use the image from Azure Container Registry
     ports:
-      - "80:80"
-    environment:
-      - API_URL=http://simplebilling/api  # Internal communication with the backend
+      - "80:80"  # Expose Angular on port 80
     depends_on:
-      - simplebilling
-    restart: always
+      - simplebilling  # Ensure the backend starts first
+    restart: always  # Automatically restart if the container stops
+    networks:
+      - backend
 
   simplebilling:
-    image: simplebilling.azurecr.io/simplebilling:latest
+    image: simplebilling.azurecr.io/simplebilling:latest  # Use the image from Azure Container Registry
     environment:
-      - ASPNETCORE_URLS=http://+:80  # Backend listens on port 80
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
     depends_on:
-      - db
-    restart: always
+      - db  # Wait for the database service to start
+   # restart: always  # Automatically restart if the container stops
+    networks:
+      - backend
 
   db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: simplebilling.azurecr.io/sql-server:latest  # Use the image from Azure Container Registry
     environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=${SA_PASSWORD}  # Use environment variable for password
       - MSSQL_TCP_PORT=1433
-    restart: always
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=123+abc-456
+    networks:
+      - backend
+    volumes:
+      - mssql-data:/var/opt/mssql  # Persistent volume for database storage
+    restart: always  # Automatically restart if the container stops
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 123+abc-456 -Q 'SELECT 1'"]
+      interval: 10s  # Time between checks
+      timeout: 10s   # Timeout for healthcheck
+      retries: 5     # Retry count before marking the container as unhealthy
+
+networks:
+  backend:
+    driver: bridge  # Use a bridge network for internal communication
+
+volumes:
+  mssql-data:
+    driver: local  # Persistent volume for database storage
