@@ -1,57 +1,31 @@
 version: '3.4'
 
 services:
-  nginx:
-    image: nginx:alpine
-    depends_on:
-      - angular-app
-      - simplebilling
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Custom Nginx configuration
-    ports:
-      - "80:80"  # Expose Nginx on port 80 for Azure
-    networks:
-      - backend
-    restart: always
 
   angular-app:
-    image: simplebilling.azurecr.io/angular-app:latest  # Use the image from Azure Container Registry
-    depends_on:
-      - simplebilling  # Ensure the backend starts first
+    image: simplebilling.azurecr.io/angular-app:latest
+    ports:
+      - "80:80"
     environment:
       - API_URL=http://simplebilling/api  # Internal communication with the backend
-    networks:
-      - backend
+    depends_on:
+      - simplebilling
     restart: always
 
   simplebilling:
-    image: simplebilling.azurecr.io/simplebilling:latest  # Use the image from Azure Container Registry
+    image: simplebilling.azurecr.io/simplebilling:latest
     environment:
       - ASPNETCORE_URLS=http://+:80  # Backend listens on port 80
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
+      - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True
     depends_on:
-      - db  # Ensure the database service starts first
-    networks:
-      - backend
+      - db
     restart: always
 
   db:
-    image: mcr.microsoft.com/mssql/server:2022-latest  # Use the latest official SQL Server image
+    image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=123+abc-456
+      - SA_PASSWORD=${SA_PASSWORD}  # Use environment variable for password
       - MSSQL_TCP_PORT=1433
-    networks:
-      - backend
-    volumes:
-      - mssql-data:/var/opt/mssql  # Persistent volume for database storage
     restart: always
-
-networks:
-  backend:
-    driver: bridge  # Use a bridge network for internal communication
-
-volumes:
-  mssql-data:
-    driver: local  # Persistent volume for database storage
