@@ -13,7 +13,7 @@ RUN npm run build -- --configuration production
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine AS production-stage
 
-# Copy the built files to Nginx
+# Copy the built files to Nginx's default directory
 COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/html
 
 # Use custom Nginx configuration
