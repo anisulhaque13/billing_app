@@ -35,7 +35,7 @@ builder.Services.AddCors(options =>
 // Configure Kestrel to listen on port 443 for HTTPS (Azure handles SSL termination)
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-    serverOptions.ListenAnyIP(443); // Azure will handle SSL termination, you listen for HTTPS on 443
+    serverOptions.ListenAnyIP(80); // Azure will handle SSL termination, you listen for HTTPS on 443
     serverOptions.ConfigureHttpsDefaults(httpsOptions =>
     {
         // You can also configure SSL options here if needed
