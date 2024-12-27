@@ -2,29 +2,25 @@
 FROM node:18 AS build-stage
 WORKDIR /app
 
-# Copy package files (package.json and package-lock.json) for dependency installation
-COPY package*.json ./  
-
 # Install dependencies
+COPY package*.json ./  
 RUN npm install
 
-# Copy the entire Angular project
+# Copy the Angular project and build
 COPY . . 
-
-# Build the Angular application in production mode
 RUN npm run build -- --configuration production 
 
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine AS production-stage
 
-# Copy the built Angular application to Nginx's default HTML directory
+# Copy the built files to Nginx
 COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/html
 
-# Copy custom Nginx config file
+# Use custom Nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf 
 
 # Expose port 80
 EXPOSE 80  
 
 # Start Nginx
-CMD ["nginx", "-g", "daemon off;"]  
+CMD ["nginx", "-g", "daemon off;"]
