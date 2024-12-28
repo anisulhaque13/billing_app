@@ -89,7 +89,11 @@ using (var scope = app.Services.CreateScope())
 
 // Configure middleware
 app.UseHttpsRedirection(); // Enforce HTTPS
-app.UseCors(MyAllowSpecificOrigins); // Apply CORS policy
+app.UseCors(policy =>
+    policy.AllowAnyHeader()
+          .AllowAnyMethod()
+          .SetIsOriginAllowed(origin => true) // Allow requests from any origin
+          .AllowCredentials());
 app.UseSwagger();
 app.UseSwaggerUI();
 
