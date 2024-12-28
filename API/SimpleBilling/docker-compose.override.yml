@@ -7,7 +7,7 @@ services:
       context: ../../UI/SimpleBilling.web  # Path to the Angular project Dockerfile
       dockerfile: Dockerfile
     ports:
-      - "8080:80"  # Expose Angular on port 7000
+      - "8080:80"  # Expose Angular on port 80
     depends_on:
       - simplebilling  # Ensure the backend starts first
     networks:
