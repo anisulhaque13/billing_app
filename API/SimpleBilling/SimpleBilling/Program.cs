@@ -32,26 +32,11 @@ builder.Services.AddCors(options =>
 });
 
 // Load Kestrel certificate configuration
-//var certPath = builder.Configuration["Kestrel:Certificates:Path"];
-//var certPassword = builder.Configuration["Kestrel:Certificates:Password"];
-var certPath = "/https/https-dev-cert.pfx";
-var certPassword = "121";
+
 
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(8080); // HTTP
-
-    if (!string.IsNullOrEmpty(certPath) && File.Exists(certPath))
-    {
-        options.ListenAnyIP(8081, listenOptions =>
-        {
-            listenOptions.UseHttps(certPath, certPassword);
-        });
-    }
-    else
-    {
-        Console.WriteLine("HTTPS certificate file not found. Skipping HTTPS configuration.");
-    }
 });
 
 var app = builder.Build();
