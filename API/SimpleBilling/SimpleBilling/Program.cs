@@ -25,17 +25,33 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
-        policy.WithOrigins("http://23.251.152.29","https://23.251.152.29") // Add your client app's URL
+        policy.WithOrigins("http://23.251.152.29", "https://23.251.152.29") // Add your client app's URL
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 
+// Load Kestrel certificate configuration
+//var certPath = builder.Configuration["Kestrel:Certificates:Path"];
+//var certPassword = builder.Configuration["Kestrel:Certificates:Password"];
+var certPath = "/https/https-dev-cert.pfx";
+var certPassword = "121";
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(8080); // HTTP
+    options.ListenAnyIP(8082); // HTTP
 
+    if (!string.IsNullOrEmpty(certPath) && File.Exists(certPath))
+    {
+        options.ListenAnyIP(8081, listenOptions =>
+        {
+            listenOptions.UseHttps(certPath, certPassword);
+        });
+    }
+    else
+    {
+        Console.WriteLine("HTTPS certificate file not found. Skipping HTTPS configuration.");
+    }
 });
 
 var app = builder.Build();
@@ -73,11 +89,7 @@ using (var scope = app.Services.CreateScope())
 
 // Configure middleware
 app.UseHttpsRedirection(); // Enforce HTTPS
-app.UseCors(policy =>
-    policy.AllowAnyHeader()
-          .AllowAnyMethod()
-          .SetIsOriginAllowed(origin => true) // Allow requests from any origin
-          .AllowCredentials());
+app.UseCors(MyAllowSpecificOrigins); // Apply CORS policy
 app.UseSwagger();
 app.UseSwaggerUI();
 
