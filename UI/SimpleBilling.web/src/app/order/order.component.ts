@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { ApiService } from '../../app/services/api.service';
+import { Order } from '../../models/order.model';
 
 @Component({
   selector: 'app-order',
@@ -67,7 +68,7 @@ export class OrderComponent implements OnInit {
       .pipe(
         tap((response) => {
           // Ensure that categories is always an array
-          this.categories = response?.$values ?? []; // Use nullish coalescing to assign an array
+          this.categories = Array.isArray(response) ? response : []; // Use nullish coalescing to assign an array
           console.log('Categories loaded:', this.categories);
           this.errorMessage = null;
         }),
@@ -96,7 +97,7 @@ export class OrderComponent implements OnInit {
       .pipe(
         tap((response) => {
           // Ensure items is always an array
-          const items = response?.$values ?? [];
+          const items = Array.isArray(response) ? response : [];
           this.itemsForCategory[index].next(items);
           console.log(`Items loaded for category ${categoryId}:`, items);
         }),
@@ -112,14 +113,14 @@ export class OrderComponent implements OnInit {
   loadOrders(): void {
     this.isLoading = true;
     this.http
-      .get<{ $values?: any[] }>(this.apiService.getUrl('/api/Order'))
+      .get<Order[]>(this.apiService.getUrl('/api/Order')) // Use a strongly-typed API response
       .pipe(
         tap((response) => {
-          this.orders = (response?.$values ?? []).map(order => ({
+          this.orders = response.map((order) => ({
             ...order,
-            orderDetails: Array.isArray(order?.orderDetails?.$values)
-              ? order.orderDetails.$values // Extract $values if present
-              : []
+            orderDetails: Array.isArray(order.orderDetails) // Ensure orderDetails is an array
+              ? order.orderDetails
+              : [],
           }));
           console.log('Orders loaded:', this.orders); // Debug log
           this.errorMessage = null;
@@ -127,7 +128,7 @@ export class OrderComponent implements OnInit {
         catchError((err) => {
           console.error('Error fetching orders:', err);
           this.orders = []; // Fallback to an empty array
-          this.errorMessage = 'Failed to load orders.';
+          this.errorMessage = 'Failed to load orders. Please try again later.';
           return of([]);
         })
       )
