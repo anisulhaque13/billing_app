@@ -113,7 +113,7 @@ export class ItemComponent {
   private getItems(): Observable<Item[]> {
     return this.http.get<any>(this.apiService.getUrl('/api/Item'))
       .pipe(
-        map((response) => response.$values || []), // Extract $values array
+      //  map((response) => response.$values || []), // Extract $values array
         catchError((err) => {
           console.error('Error fetching categories:', err);
           alert('Failed to fetch categories.');
