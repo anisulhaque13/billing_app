@@ -39,7 +39,7 @@ var certPassword = "121";
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(8082); // HTTP
+    options.ListenAnyIP(8080); // HTTP
 
     if (!string.IsNullOrEmpty(certPath) && File.Exists(certPath))
     {
@@ -88,7 +88,6 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure middleware
-app.UseHttpsRedirection(); // Enforce HTTPS
 app.UseCors(MyAllowSpecificOrigins); // Apply CORS policy
 app.UseSwagger();
 app.UseSwaggerUI();
