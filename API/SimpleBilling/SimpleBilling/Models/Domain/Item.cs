@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimpleBilling.Models.Domain
 {
@@ -18,6 +19,7 @@ namespace SimpleBilling.Models.Domain
         public string Unit { get; set; }
 
         [Display(Name = "Unit Price")]
+        [Precision(18, 2)]
         public decimal Price {get; set; }
     }
 }
