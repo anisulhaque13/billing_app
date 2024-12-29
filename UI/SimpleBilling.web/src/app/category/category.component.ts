@@ -82,7 +82,7 @@ export class CategoryComponent implements OnInit {
   private getCategories(): Observable<Category[]> {
     return this.http.get<any>(this.apiService.getUrl('/api/Category'))
       .pipe(
-       // map((response) => response.$values || []), // Extract $values array
+        map((response) => response.$values || []), // Extract $values array
         catchError((err) => {
           console.error('Error fetching categories:', err);
           alert('Failed to fetch categories.');
