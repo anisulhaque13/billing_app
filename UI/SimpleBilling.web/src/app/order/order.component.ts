@@ -109,19 +109,19 @@ export class OrderComponent implements OnInit {
       )
       .subscribe(() => (this.isLoading = false));
   }
+
   loadOrders(): void {
     this.isLoading = true;
     this.http
-      .get<{ $values?: any[] }>(this.apiService.getUrl('/api/Order'))
+      .get<any[]>(this.apiService.getUrl('/api/Order')) // Expect a direct array of orders
       .pipe(
         tap((response) => {
-          this.orders = (response?.$values ?? []).map(order => ({
+          // Ensure response is always treated as an array
+          this.orders = response.map(order => ({
             ...order,
-            orderDetails: Array.isArray(order?.orderDetails?.$values)
-              ? order.orderDetails.$values // Extract $values if present
-              : []
+            orderDetails: Array.isArray(order.orderDetails) ? order.orderDetails : []
           }));
-          console.log('Orders loaded:', this.orders); // Debug log
+          console.log('Orders loaded:', this.orders);
           this.errorMessage = null;
         }),
         catchError((err) => {
@@ -133,6 +133,7 @@ export class OrderComponent implements OnInit {
       )
       .subscribe(() => (this.isLoading = false));
   }
+
 
 
   onSubmit(): void {
