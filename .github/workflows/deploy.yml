@@ -1,0 +1,74 @@
+name: Deploy to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - google-cloud
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Google Cloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      # Step 3: Authenticate Docker with Artifact Registry
+      - name: Authenticate Docker
+        run: gcloud auth configure-docker
+
+      # Step 4: Build and Push Angular App
+      - name: Build and Push Angular App
+        run: |
+          docker-compose build angular-app
+          docker tag angular-app:latest REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
+          docker push REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
+
+      # Step 5: Build and Push Backend App
+      - name: Build and Push Backend App
+        run: |
+          docker-compose build simplebilling
+          docker tag simplebilling:latest REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
+          docker push REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
+
+      # Step 6: Build and Push Database
+      - name: Build and Push SQL Server
+        run: |
+          docker-compose build db
+          docker tag db:latest REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
+          docker push REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
+
+      # Step 7: Deploy Angular App to Cloud Run
+      - name: Deploy Angular App
+        run: |
+          gcloud run deploy angular-app \
+            --image REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest \
+            --platform managed \
+            --region REGION \
+            --allow-unauthenticated
+
+      # Step 8: Deploy Backend App to Cloud Run
+      - name: Deploy Backend App
+        run: |
+          gcloud run deploy simplebilling-backend \
+            --image REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest \
+            --platform managed \
+            --region REGION \
+            --allow-unauthenticated
+
+      # Step 9: Deploy SQL Server to Cloud Run
+      - name: Deploy SQL Server
+        run: |
+          gcloud run deploy sqlserver \
+            --image REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest \
+            --platform managed \
+            --region REGION \
+            --allow-unauthenticated
