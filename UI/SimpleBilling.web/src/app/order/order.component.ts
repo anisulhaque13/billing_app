@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { ApiService } from '../../app/services/api.service';
 
 @Component({
@@ -67,7 +67,7 @@ export class OrderComponent implements OnInit {
       .pipe(
         tap((response) => {
           // Ensure that categories is always an array
-          this.categories = Array.isArray(response) ? response : []; // Use nullish coalescing to assign an array
+          this.categories = response?.$values ?? []; // Use nullish coalescing to assign an array
           console.log('Categories loaded:', this.categories);
           this.errorMessage = null;
         }),
@@ -96,7 +96,7 @@ export class OrderComponent implements OnInit {
       .pipe(
         tap((response) => {
           // Ensure items is always an array
-          const items = Array.isArray(response) ? response : [];
+          const items = response?.$values ?? [];
           this.itemsForCategory[index].next(items);
           console.log(`Items loaded for category ${categoryId}:`, items);
         }),
@@ -109,20 +109,19 @@ export class OrderComponent implements OnInit {
       )
       .subscribe(() => (this.isLoading = false));
   }
-
   loadOrders(): void {
     this.isLoading = true;
     this.http
-      .get<any[]>(this.apiService.getUrl('/api/Order')) // Expect a direct array of orders
+      .get<{ $values?: any[] }>(this.apiService.getUrl('/api/Order'))
       .pipe(
         tap((response) => {
-          console.log(response);
-          // Ensure response is always treated as an array
-          this.orders = response.map(order => ({
+          this.orders = (response?.$values ?? []).map(order => ({
             ...order,
-            orderDetails: Array.isArray(order.orderDetails) ? order.orderDetails : []
+            orderDetails: Array.isArray(order?.orderDetails?.$values)
+              ? order.orderDetails.$values // Extract $values if present
+              : []
           }));
-          console.log('Orders loaded:', this.orders);
+          console.log('Orders loaded:', this.orders); // Debug log
           this.errorMessage = null;
         }),
         catchError((err) => {
@@ -134,7 +133,6 @@ export class OrderComponent implements OnInit {
       )
       .subscribe(() => (this.isLoading = false));
   }
-
 
 
   onSubmit(): void {
