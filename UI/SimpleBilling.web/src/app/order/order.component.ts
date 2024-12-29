@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { ApiService } from '../../app/services/api.service';
 
 @Component({
@@ -111,25 +111,29 @@ export class OrderComponent implements OnInit {
   }
 
   loadOrders(): void {
-    this.orders = [
-      {
-        id: '1',
-        orderDate: '2023-12-28',
-        orderDetails: [
-          { id: '1', categoryId: '1', itemId: '101', quantity: 2, price: 100 }
-        ]
-      },
-      {
-        id: '2',
-        orderDate: '2023-12-29',
-        orderDetails: [
-          { id: '2', categoryId: '2', itemId: '102', quantity: 1, price: 50 }
-        ]
-      }
-    ];
-    console.log('Mock orders loaded:', this.orders);
+    this.isLoading = true;
+    this.http
+      .get<any[]>(this.apiService.getUrl('/api/Order')) // Expect a direct array of orders
+      .pipe(
+        tap((response) => {
+          console.log(response);
+          // Ensure response is always treated as an array
+          this.orders = response.map(order => ({
+            ...order,
+            orderDetails: Array.isArray(order.orderDetails) ? order.orderDetails : []
+          }));
+          console.log('Orders loaded:', this.orders);
+          this.errorMessage = null;
+        }),
+        catchError((err) => {
+          console.error('Error fetching orders:', err);
+          this.orders = []; // Fallback to an empty array
+          this.errorMessage = 'Failed to load orders.';
+          return of([]);
+        })
+      )
+      .subscribe(() => (this.isLoading = false));
   }
-
 
 
 
