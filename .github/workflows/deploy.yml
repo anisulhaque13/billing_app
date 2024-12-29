@@ -21,38 +21,35 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      # Step 3: Install Docker Compose
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-
-      # Step 4: Authenticate Docker with Artifact Registry
+      # Step 3: Authenticate Docker
       - name: Authenticate Docker
         run: gcloud auth configure-docker
 
-      # Step 5: Build and Push Angular App
+      # Step 4: Build and Push Angular App
       - name: Build and Push Angular App
+        working-directory: ./API/SimpleBilling
         run: |
           docker-compose build angular-app
           docker tag angular-app:latest REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
           docker push REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
 
-      # Step 6: Build and Push Backend App
+      # Step 5: Build and Push Backend App
       - name: Build and Push Backend App
+        working-directory: ./API/SimpleBilling
         run: |
           docker-compose build simplebilling
           docker tag simplebilling:latest REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
           docker push REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
 
-      # Step 7: Build and Push SQL Server
+      # Step 6: Build and Push SQL Server
       - name: Build and Push SQL Server
+        working-directory: ./API/SimpleBilling
         run: |
           docker-compose build db
           docker tag db:latest REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
           docker push REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
 
-      # Step 8: Deploy Angular App to Cloud Run
+      # Step 7: Deploy Angular App to Cloud Run
       - name: Deploy Angular App
         run: |
           gcloud run deploy angular-app \
@@ -61,7 +58,7 @@ jobs:
             --region REGION \
             --allow-unauthenticated
 
-      # Step 9: Deploy Backend App to Cloud Run
+      # Step 8: Deploy Backend App to Cloud Run
       - name: Deploy Backend App
         run: |
           gcloud run deploy simplebilling-backend \
@@ -70,7 +67,7 @@ jobs:
             --region REGION \
             --allow-unauthenticated
 
-      # Step 10: Deploy SQL Server to Cloud Run
+      # Step 9: Deploy SQL Server to Cloud Run
       - name: Deploy SQL Server
         run: |
           gcloud run deploy sqlserver \
