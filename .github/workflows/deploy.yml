@@ -71,8 +71,7 @@ jobs:
             --cpu=4 \
             --set-env-vars ACCEPT_EULA=Y,SA_PASSWORD=123+abc-456 \
             --command "/bin/bash" \
-            --args "-c /opt/mssql/bin/sqlservr --port \$PORT" \
-            --no-health-checks
+            --args "-c /opt/mssql/bin/sqlservr --port \$PORT"
 
       # Step 10: Get SQL Server Service URL
       - name: Get SQL Server Service URL
