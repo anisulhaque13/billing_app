@@ -2,19 +2,20 @@ version: '3.8'
 
 services:
   angular-app:
-    image: angular-app:latest
+    image: gcr.io/projectmdanisulhaque/angular-app:latest  # Update with your Google Cloud project
     build:
       context: ../../UI/SimpleBilling.web  # Path to the Angular project Dockerfile
       dockerfile: Dockerfile
     ports:
       - "7000:80"  # Expose Angular on port 80
-    depends_on:
-      - simplebilling  # Ensure the backend starts first
     networks:
       - backend
 
   simplebilling:
-    image: simplebilling:latest
+    image: gcr.io/projectmdanisulhaque/simplebilling:latest  # Update with your Google Cloud project
+    build:
+      context: ../../API/SimpleBilling  # Adjust if there's a Dockerfile for the backend
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:8080
       - ASPNETCORE_ENVIRONMENT=Development
@@ -32,12 +33,12 @@ services:
       - MSSQL_TCP_PORT=1433
       - ACCEPT_EULA=Y
       - SA_PASSWORD=123+abc-456
-    ports:
-      - "11433:1433"  # Expose SQL Server on port 11433
-    networks:
-      - backend
     volumes:
       - mssql-data:/var/opt/mssql
+    ports:
+      - "1433:1433"  # Expose SQL Server on port 1433
+    networks:
+      - backend
 
 networks:
   backend:
