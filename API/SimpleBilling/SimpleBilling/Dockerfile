@@ -12,11 +12,10 @@ WORKDIR /src
 USER root
 
 # Copy and restore the .csproj file
-COPY ["SimpleBilling.csproj", "./"]
+COPY ["SimpleBilling/SimpleBilling.csproj", "./"]
 RUN dotnet restore "./SimpleBilling.csproj"
 
 # Copy the rest of the source code
-RUN ls -la
 COPY . ./SimpleBilling
 
 
