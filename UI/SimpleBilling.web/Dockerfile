@@ -23,13 +23,7 @@ COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/ht
 # Use a custom Nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Dynamically set the PORT for Nginx
-ENV PORT=8080
-
-# Replace default Nginx configuration to listen on the dynamically assigned PORT
-RUN envsubst '${PORT}' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf.tmp && mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
-
-# Expose the port (matches the Cloud Run environment)
+# Expose the dynamically assigned port
 EXPOSE 8080
 
 # Start Nginx

@@ -67,8 +67,8 @@ jobs:
             --platform managed \
             --region europe-west3 \
             --allow-unauthenticated \
-            --timeout=600s \
-            --memory=1Gi \
+            --timeout=1200s \
+            --memory=512Mi \
             --cpu=1
 
       # Step 10: Deploy SQL Server to Cloud Run
