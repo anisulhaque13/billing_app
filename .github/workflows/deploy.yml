@@ -58,7 +58,20 @@ jobs:
           docker tag mcr.microsoft.com/mssql/server:2022-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
 
-      # Step 9: Deploy SQL Server to Cloud Run
+
+      # Step 9: Deploy Angular App to Cloud Run
+      - name: Deploy Angular App
+        run: |
+          gcloud run deploy angular-app \
+            --image europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest \
+            --platform managed \
+            --region europe-west3 \
+            --allow-unauthenticated \
+            --timeout=600s \
+            --memory=1Gi \
+            --cpu=0.25
+
+      # Step 10: Deploy SQL Server to Cloud Run
       - name: Deploy SQL Server
         run: |
           gcloud run deploy sqlserver \
@@ -67,11 +80,11 @@ jobs:
             --region europe-west3 \
             --allow-unauthenticated \
             --port 1433 \
-            --timeout=600s \
+            --timeout=1200s \
             --memory=3Gi \
             --cpu=1
 
-      # Step 10: Deploy Backend App to Cloud Run
+      # Step 11: Deploy Backend App to Cloud Run
       - name: Deploy Backend App
         run: |
           gcloud run deploy simplebilling-backend \
@@ -79,14 +92,6 @@ jobs:
             --platform managed \
             --region europe-west3 \
             --allow-unauthenticated \
-            --port 8080
-
-      # Step 11: Deploy Angular App to Cloud Run
-      - name: Deploy Angular App
-        run: |
-          gcloud run deploy angular-app \
-            --image europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest \
-            --platform managed \
-            --region europe-west3 \
-            --allow-unauthenticated \
-            --port 80
+            --timeout=600s \
+            --memory=1Gi \
+            --cpu=0.25
