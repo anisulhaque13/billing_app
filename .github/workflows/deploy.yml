@@ -53,7 +53,14 @@ jobs:
           docker tag simplebilling:latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
 
-      # Step 8: Deploy Angular App to Cloud Run
+      # Step 8: Push SQL Server Image (No Build Required)
+      - name: Push SQL Server Image
+        run: |
+          docker pull mcr.microsoft.com/mssql/server:2022-latest
+          docker tag mcr.microsoft.com/mssql/server:2022-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
+          docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
+
+      # Step 9: Deploy Angular App to Cloud Run
       - name: Deploy Angular App
         run: |
           gcloud run deploy angular-app \
@@ -64,17 +71,20 @@ jobs:
             --port 8080 \
             --timeout 300s
 
-      # Step 9: Deploy Backend App to Cloud Run
+      # Step 10: Deploy Backend App to Cloud Run
       - name: Deploy Backend App
         run: |
           gcloud run deploy simplebilling-backend \
             --image europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest \
             --platform managed \
             --region europe-west3 \
-            --allow-unauthenticated \
-            --set-env-vars ConnectionStrings__BillingDB='Server=${{ secrets.CLOUD_SQL_CONNECTION_STRING }};Database=BillingDB;User Id=sa;Password=${{ secrets.DB_PASSWORD }}'
+            --allow-unauthenticated
 
-      # Step 10: Configure Database in Cloud SQL (Optional Step)
-      - name: Deploy Database (Recommended: Use Cloud SQL)
+      # Step 11: Deploy SQL Server to Cloud Run
+      - name: Deploy SQL Server
         run: |
-          echo "Use a managed database service like Cloud SQL for production workloads."
+          gcloud run deploy sqlserver \
+            --image europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest \
+            --platform managed \
+            --region europe-west3 \
+            --allow-unauthenticated
