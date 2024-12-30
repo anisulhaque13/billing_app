@@ -20,8 +20,15 @@ FROM nginx:alpine AS production-stage
 # Copy the built Angular application to Nginx's default HTML directory
 COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/html
 
-# Use a custom Nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf.template
+
+# Install envsubst for dynamic environment variable substitution
+RUN apk add --no-cache gettext
+
+# Dynamically replace the PORT in nginx.conf
+ENV PORT=8080
+RUN envsubst '${PORT}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 # Expose the dynamically assigned port
 EXPOSE 8080
