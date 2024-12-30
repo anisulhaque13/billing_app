@@ -26,8 +26,10 @@ COPY nginx.conf /etc/nginx/nginx.conf.template
 # Install envsubst for dynamic environment variable substitution
 RUN apk add --no-cache gettext
 
-# Dynamically replace BACKEND_URL in nginx.conf
+# Define the BACKEND_URL as an environment variable
 ENV BACKEND_URL=https://simplebilling-backend-xxxx.a.run.app  # Replace with your backend's Cloud Run URL
+
+# Use envsubst to replace BACKEND_URL in the Nginx configuration
 RUN envsubst '${BACKEND_URL}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 # Expose the dynamically assigned port
@@ -35,4 +37,3 @@ EXPOSE 8080
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
-

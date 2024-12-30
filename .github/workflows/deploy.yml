@@ -58,20 +58,7 @@ jobs:
           docker tag mcr.microsoft.com/mssql/server:2022-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
 
-
-      # Step 9: Deploy Angular App to Cloud Run
-      - name: Deploy Angular App
-        run: |
-          gcloud run deploy angular-app \
-            --image europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest \
-            --platform managed \
-            --region europe-west3 \
-            --allow-unauthenticated \
-            --timeout=1200s \
-            --memory=512Mi \
-            --cpu=1
-
-      # Step 10: Deploy SQL Server to Cloud Run
+      # Step 9: Deploy SQL Server to Cloud Run
       - name: Deploy SQL Server
         run: |
           gcloud run deploy sqlserver \
@@ -84,7 +71,7 @@ jobs:
             --memory=3Gi \
             --cpu=1
 
-      # Step 11: Deploy Backend App to Cloud Run
+      # Step 10: Deploy Backend App
       - name: Deploy Backend App
         run: |
           gcloud run deploy simplebilling-backend \
@@ -95,3 +82,26 @@ jobs:
             --timeout=600s \
             --memory=1Gi \
             --cpu=1
+
+      # Step 11: Get Backend Service URL
+      - name: Get Backend Service URL
+        id: backend_url
+        run: |
+          BACKEND_URL=$(gcloud run services describe simplebilling-backend \
+            --platform managed \
+            --region europe-west3 \
+            --format='value(status.url)')
+          echo "BACKEND_URL=$BACKEND_URL" >> $GITHUB_ENV
+
+      # Step 12: Deploy Angular App
+      - name: Deploy Angular App
+        run: |
+          gcloud run deploy angular-app \
+            --image europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest \
+            --platform managed \
+            --region europe-west3 \
+            --allow-unauthenticated \
+            --timeout=1200s \
+            --memory=512Mi \
+            --cpu=1 \
+            --set-env-vars BACKEND_URL=${{ env.BACKEND_URL }}
