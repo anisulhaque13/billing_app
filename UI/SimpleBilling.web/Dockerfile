@@ -27,7 +27,7 @@ COPY nginx.conf /etc/nginx/nginx.conf.template
 RUN apk add --no-cache gettext
 
 # Define the BACKEND_URL as an environment variable
-ENV BACKEND_URL=https://simplebilling-backend-xxxx.a.run.app  # Replace with your backend's Cloud Run URL
+ENV BACKEND_URL=https://simplebilling-backend-xxxx.a.run.app  
 
 # Use envsubst to replace BACKEND_URL in the Nginx configuration
 RUN envsubst '${BACKEND_URL}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
