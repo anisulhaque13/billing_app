@@ -20,10 +20,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BillingDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BillingDB")));
 
-// Configure Kestrel
+// Configure Kestrel to use the PORT environment variable provided by Cloud Run
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(8080); // HTTP
+    options.ListenAnyIP(int.Parse(port)); // Bind to the dynamic port
 });
 
 // Define CORS policy
@@ -33,7 +34,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
         policy.WithOrigins(
-            "http://23.251.152.29")  // Add your client app's URL
+            builder.Configuration["AllowedOrigins"] ?? "http://23.251.152.29") // Read from configuration or default
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -44,12 +45,12 @@ builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
+// Use CORS policy
 app.UseCors(policy =>
     policy.AllowAnyHeader()
           .AllowAnyMethod()
           .SetIsOriginAllowed(origin => true) // Allow requests from any origin
           .AllowCredentials());
-
 
 // Apply migrations with retry logic
 using (var scope = app.Services.CreateScope())
