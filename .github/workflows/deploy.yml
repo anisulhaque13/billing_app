@@ -14,49 +14,54 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Google Cloud SDK
+      # Step 2: Authenticate with Google Cloud
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      # Step 3: Set up Google Cloud SDK
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      # Step 3: Install Docker Compose
+      # Step 4: Install Docker Compose
       - name: Install Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
 
-      # Step 4: Authenticate Docker
+      # Step 5: Authenticate Docker
       - name: Authenticate Docker
         run: gcloud auth configure-docker europe-west3-docker.pkg.dev
 
-      # Step 5: Build and Push Angular App
+      # Step 6: Build and Push Angular App
       - name: Build and Push Angular App
         working-directory: ./API/SimpleBilling
         run: |
-          docker-compose build angular-app
+          docker-compose build --no-cache angular-app
           docker tag angular-app:latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
 
-      # Step 6: Build and Push Backend App
+      # Step 7: Build and Push Backend App
       - name: Build and Push Backend App
         working-directory: ./API/SimpleBilling
         run: |
-          docker-compose build simplebilling
+          docker-compose build --no-cache simplebilling
           docker tag simplebilling:latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
 
-      # Step 7: Build and Push SQL Server
+      # Step 8: Build and Push SQL Server
       - name: Build and Push SQL Server
         working-directory: ./API/SimpleBilling
         run: |
-          docker-compose build db
+          docker-compose build --no-cache db
           docker tag db:latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
 
-      # Step 8: Deploy Angular App to Cloud Run
+      # Step 9: Deploy Angular App to Cloud Run
       - name: Deploy Angular App
         run: |
           gcloud run deploy angular-app \
@@ -65,7 +70,7 @@ jobs:
             --region europe-west3 \
             --allow-unauthenticated
 
-      # Step 9: Deploy Backend App to Cloud Run
+      # Step 10: Deploy Backend App to Cloud Run
       - name: Deploy Backend App
         run: |
           gcloud run deploy simplebilling-backend \
@@ -74,7 +79,7 @@ jobs:
             --region europe-west3 \
             --allow-unauthenticated
 
-      # Step 10: Deploy SQL Server to Cloud Run
+      # Step 11: Deploy SQL Server to Cloud Run
       - name: Deploy SQL Server
         run: |
           gcloud run deploy sqlserver \
