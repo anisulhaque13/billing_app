@@ -67,9 +67,9 @@ jobs:
             --region europe-west3 \
             --allow-unauthenticated \
             --port 1433 \
-            --timeout=1200s \
-            --memory=4Gi \
-            --cpu=2
+            --timeout=3600s \
+            --memory=6Gi \
+            --cpu=4
 
       # Step 10: Deploy Backend App
       - name: Deploy Backend App
