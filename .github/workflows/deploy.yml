@@ -66,6 +66,7 @@ jobs:
             --platform managed \
             --region europe-west3 \
             --allow-unauthenticated \
+	    --port 1433 \
             --timeout=1200s \
             --memory=3Gi \
             --cpu=1
