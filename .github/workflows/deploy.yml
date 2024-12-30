@@ -62,7 +62,7 @@ jobs:
             --region europe-west3 \
             --allow-unauthenticated \
             --port 8080 \
-            --timeout 120s
+            --timeout 300s
 
       # Step 9: Deploy Backend App to Cloud Run
       - name: Deploy Backend App
@@ -72,7 +72,7 @@ jobs:
             --platform managed \
             --region europe-west3 \
             --allow-unauthenticated \
-            --set-env-vars ConnectionStrings__BillingDB="Server=<CLOUD_SQL_CONNECTION_STRING>;Database=BillingDB;User Id=sa;Password=<PASSWORD>"
+            --set-env-vars ConnectionStrings__BillingDB='Server=${{ secrets.CLOUD_SQL_CONNECTION_STRING }};Database=BillingDB;User Id=sa;Password=${{ secrets.DB_PASSWORD }}'
 
       # Step 10: Configure Database in Cloud SQL (Optional Step)
       - name: Deploy Database (Recommended: Use Cloud SQL)
