@@ -70,8 +70,9 @@ jobs:
             --memory=8Gi \
             --cpu=4 \
             --port=1433 \
-            --set-env-vars ACCEPT_EULA=Y,SA_PASSWORD=123+abc-456 \
-            --command "/opt/mssql/bin/sqlservr"
+            --set-env-vars ACCEPT_EULA=Y,SA_PASSWORD=123+abc-456,PORT=1433 \
+            --command "/opt/mssql/bin/sqlservr" \
+            --no-traffic
 
       # Step 10: Get SQL Server Service URL
       - name: Get SQL Server Service URL
