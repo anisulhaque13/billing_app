@@ -26,11 +26,11 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Use the PORT environment variable from Cloud Run
 ENV PORT=8080
 
-# Update Nginx configuration to listen on the PORT environment variable
+# Replace default Nginx configuration to listen on the PORT environment variable
 RUN sed -i 's/listen\s*80;/listen ${PORT};/' /etc/nginx/nginx.conf
 
 # Expose the port (this matches the Cloud Run environment)
 EXPOSE 8080
 
 # Start Nginx
-CMD ["sh", "-c", "envsubst < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "nginx -g 'daemon off;'"]
