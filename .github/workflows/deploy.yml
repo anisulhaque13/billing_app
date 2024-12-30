@@ -66,10 +66,11 @@ jobs:
             --platform managed \
             --region europe-west3 \
             --allow-unauthenticated \
-            --port 1433 \
-            --timeout=3600s \
+            --timeout=9600s \
             --memory=6Gi \
-            --cpu=4
+            --cpu=4 \
+            --port=1433 \
+            --command "/opt/mssql/bin/sqlservr"
 
       # Step 10: Get SQL Server Service URL
       - name: Get SQL Server Service URL
