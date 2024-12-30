@@ -7,7 +7,7 @@ services:
       context: ../../UI/SimpleBilling.web  # Path to the Angular project Dockerfile
       dockerfile: Dockerfile
     ports:
-      - "8080:80"  # Expose Angular on port 80
+      - "7000:80"  # Expose Angular on port 80
     depends_on:
       - simplebilling  # Ensure the backend starts first
     networks:
@@ -16,19 +16,13 @@ services:
   simplebilling:
     image: simplebilling:latest
     environment:
-      - ASPNETCORE_URLS=http://+:8080;https://+:8081
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/https-dev-cert.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=121
+      - ASPNETCORE_URLS=http://+:8080;
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
     ports:
       - "8080:8080"  # Map HTTP to internal 8080
-      - "8081:8081"  # Map HTTPS to internal 8081
-    volumes:
-      - ./https-dev-cert.pfx:/https/https-dev-cert.pfx:ro
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     networks:
       - backend
 
@@ -44,12 +38,6 @@ services:
       - backend
     volumes:
       - mssql-data:/var/opt/mssql
-    healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "123+abc-456", "-Q", "SELECT 1"]
-      interval: 10s
-      retries: 3
-    security_opt:
-      - no-new-privileges:true
 
 networks:
   backend:
