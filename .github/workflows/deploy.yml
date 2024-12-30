@@ -30,7 +30,7 @@ jobs:
 
       # Step 4: Authenticate Docker
       - name: Authenticate Docker
-        run: gcloud auth configure-docker
+        run: gcloud auth configure-docker europe-north1-docker.pkg.dev
 
       # Step 5: Build and Push Angular App
       - name: Build and Push Angular App
@@ -55,30 +55,3 @@ jobs:
           docker-compose build db
           docker tag db:latest europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
           docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
-
-      # Step 8: Deploy Angular App to Cloud Run
-      - name: Deploy Angular App
-        run: |
-          gcloud run deploy angular-app \
-            --image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest \
-            --platform managed \
-            --region europe-north1 \
-            --allow-unauthenticated
-
-      # Step 9: Deploy Backend App to Cloud Run
-      - name: Deploy Backend App
-        run: |
-          gcloud run deploy simplebilling-backend \
-            --image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest \
-            --platform managed \
-            --region europe-north1 \
-            --allow-unauthenticated
-
-      # Step 10: Deploy SQL Server to Cloud Run
-      - name: Deploy SQL Server
-        run: |
-          gcloud run deploy sqlserver \
-            --image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest \
-            --platform managed \
-            --region europe-north1 \
-            --allow-unauthenticated
