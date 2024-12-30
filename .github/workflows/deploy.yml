@@ -69,7 +69,7 @@ jobs:
             --allow-unauthenticated \
             --timeout=600s \
             --memory=1Gi \
-            --cpu=0.25
+            --cpu=1
 
       # Step 10: Deploy SQL Server to Cloud Run
       - name: Deploy SQL Server
@@ -94,4 +94,4 @@ jobs:
             --allow-unauthenticated \
             --timeout=600s \
             --memory=1Gi \
-            --cpu=0.25
+            --cpu=1
