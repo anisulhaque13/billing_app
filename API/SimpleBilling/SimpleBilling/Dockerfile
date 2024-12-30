@@ -21,13 +21,13 @@ COPY . ./SimpleBilling
 
 # Build the application
 WORKDIR /src/SimpleBilling
-RUN dotnet build "SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "SimpleBilling/SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish the application
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src/SimpleBilling
-RUN dotnet publish "SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "SimpleBilling/SimpleBilling.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Final runtime image
 FROM base AS final
