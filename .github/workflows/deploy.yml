@@ -37,48 +37,48 @@ jobs:
         working-directory: ./API/SimpleBilling
         run: |
           docker-compose build angular-app
-          docker tag angular-app:latest REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
-          docker push REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
+          docker tag angular-app:latest europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
+          docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
 
       # Step 6: Build and Push Backend App
       - name: Build and Push Backend App
         working-directory: ./API/SimpleBilling
         run: |
           docker-compose build simplebilling
-          docker tag simplebilling:latest REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
-          docker push REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
+          docker tag simplebilling:latest europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
+          docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
 
       # Step 7: Build and Push SQL Server
       - name: Build and Push SQL Server
         working-directory: ./API/SimpleBilling
         run: |
           docker-compose build db
-          docker tag db:latest REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
-          docker push REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
+          docker tag db:latest europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
+          docker push europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
 
       # Step 8: Deploy Angular App to Cloud Run
       - name: Deploy Angular App
         run: |
           gcloud run deploy angular-app \
-            --image REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest \
+            --image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest \
             --platform managed \
-            --region REGION \
+            --region europe-north1 \
             --allow-unauthenticated
 
       # Step 9: Deploy Backend App to Cloud Run
       - name: Deploy Backend App
         run: |
           gcloud run deploy simplebilling-backend \
-            --image REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest \
+            --image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest \
             --platform managed \
-            --region REGION \
+            --region europe-north1 \
             --allow-unauthenticated
 
       # Step 10: Deploy SQL Server to Cloud Run
       - name: Deploy SQL Server
         run: |
           gcloud run deploy sqlserver \
-            --image REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest \
+            --image europe-north1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest \
             --platform managed \
-            --region REGION \
+            --region europe-north1 \
             --allow-unauthenticated
