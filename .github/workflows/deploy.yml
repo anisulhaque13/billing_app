@@ -54,8 +54,8 @@ jobs:
       # Step 8: Push SQL Server Image (No Build Required)
       - name: Push SQL Server Image
         run: |
-          docker pull mcr.microsoft.com/mssql/server:2022-latest
-          docker tag mcr.microsoft.com/mssql/server:2022-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
+          docker pull mcr.microsoft.com/mssql/server:2019-latest
+          docker tag mcr.microsoft.com/mssql/server:2019-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
 
       # Step 9: Deploy SQL Server to Cloud Run
@@ -71,7 +71,8 @@ jobs:
             --cpu=4 \
             --set-env-vars ACCEPT_EULA=Y,SA_PASSWORD=123+abc-456 \
             --command "/bin/bash" \
-            --args "-c /opt/mssql/bin/sqlservr --port \$PORT"
+            --args "-c /opt/mssql/bin/sqlservr --port \$PORT" \
+            --no-health-checks
 
       # Step 10: Get SQL Server Service URL
       - name: Get SQL Server Service URL
