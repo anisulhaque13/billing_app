@@ -67,9 +67,10 @@ jobs:
             --region europe-west3 \
             --allow-unauthenticated \
             --timeout=3600s \
-            --memory=6Gi \
+            --memory=8Gi \
             --cpu=4 \
             --port=1433 \
+            --set-env-vars ACCEPT_EULA=Y,SA_PASSWORD=123+abc-456 \
             --command "/opt/mssql/bin/sqlservr"
 
       # Step 10: Get SQL Server Service URL
