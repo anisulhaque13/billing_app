@@ -1,49 +1,47 @@
-version: '3.8'
-
 services:
   angular-app:
-    image: gcr.io/projectmdanisulhaque/angular-app:latest  # Update with your Google Cloud project
+    image: gcr.io/projectmdanisulhaque/angular-app:latest
     build:
-      context: ../../UI/SimpleBilling.web  # Path to the Angular project Dockerfile
+      context: ../../UI/SimpleBilling.web
       dockerfile: Dockerfile
     ports:
-      - "7000:80"  # Expose Angular on port 80
+      - "7000:80"
+    depends_on:
+      - simplebilling
     networks:
       - backend
 
   simplebilling:
-    image: gcr.io/projectmdanisulhaque/simplebilling:latest  # Update with your Google Cloud project
-    build:
-      context: ../../API/SimpleBilling  # Adjust if there's a Dockerfile for the backend
-      dockerfile: Dockerfile
+    image: gcr.io/projectmdanisulhaque/simplebilling:latest
     environment:
-      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_URLS=http://+:8080;https://+:8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/https-dev-cert.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=121
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
     ports:
-      - "8080:8080"  # Map HTTP to internal 8080
+      - "5000:8080"
+      - "5001:8081"
+    volumes:
+      - ./https-dev-cert.pfx:/https/https-dev-cert.pfx:ro
     depends_on:
       - db
     networks:
       - backend
 
   db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: gcr.io/projectmdanisulhaque/db:latest
     environment:
       - MSSQL_TCP_PORT=1433
       - ACCEPT_EULA=Y
       - SA_PASSWORD=123+abc-456
-    volumes:
-      - mssql-data:/var/opt/mssql
     ports:
-      - "1433:1433"  # Expose SQL Server on port 1433
+      - "11433:1433"
     networks:
       - backend
+    volumes:
+      - mssql-data:/var/opt/mssql
 
 networks:
   backend:
-    driver: bridge  # Internal network for service communication
-
-volumes:
-  mssql-data:
-    driver: local  # Persistent volume for SQL Server storage
+    driver: bridge
