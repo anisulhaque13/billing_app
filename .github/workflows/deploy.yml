@@ -19,7 +19,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0.6.0
         with:
           project_id: projectmdanisulhaque
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
