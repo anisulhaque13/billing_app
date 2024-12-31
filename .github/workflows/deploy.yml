@@ -29,6 +29,13 @@ jobs:
       - name: Log in to Google Artifact Registry
         run: |
           echo "${{ secrets.GCP_CREDENTIALS }}" | docker login -u _json_key --password-stdin https://europe-west3-docker.pkg.dev
+        continue-on-error: true  # Allow the workflow to continue even if the login fails, to gather more information
+
+      # Debugging: Check if docker login was successful
+      - name: Check Docker login status
+        run: |
+          docker info
+        if: failure()  # This step runs only if the previous login step fails
 
       # Build and push Docker images
       - name: Build and push Docker images
