@@ -27,7 +27,8 @@ jobs:
 
       # Log in to Google Container Registry
       - name: Log in to Google Container Registry
-        run: echo ${{ secrets.GCP_CREDENTIALS }} | docker login -u _json_key --password-stdin https://gcr.io
+        run: |
+          echo "${{ secrets.GCP_CREDENTIALS }}" | docker login -u _json_key --password-stdin https://gcr.io
 
       # Build and push Docker images to Google Container Registry
       - name: Build and push Docker images
