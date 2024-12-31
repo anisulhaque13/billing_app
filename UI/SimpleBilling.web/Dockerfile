@@ -20,8 +20,6 @@ FROM nginx:alpine AS production-stage
 # Copy the built Angular application to Nginx's default HTML directory
 COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/html
 
-# Use custom Nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf 
 
 # Expose port 80
 EXPOSE 80
