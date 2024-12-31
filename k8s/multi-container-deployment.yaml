@@ -14,14 +14,37 @@ spec:
     spec:
       containers:
       - name: angular-app
-        image: gcr.io/projectmdanisulhaque/angular-app:latest
+        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/angular-app:latest
+        resources:
+          requests:
+            cpu: "250m"  # 0.25 CPU for Angular
+            memory: "512Mi"  # 512MB memory for Angular
+          limits:
+            cpu: "250m"  # 0.25 CPU for Angular
+            memory: "512Mi"  # 512MB memory for Angular
         ports:
         - containerPort: 80
+
       - name: simplebilling
-        image: gcr.io/projectmdanisulhaque/simplebilling:latest
+        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest
+        resources:
+          requests:
+            cpu: "250m"  # 0.25 CPU for Simple Billing
+            memory: "512Mi"  # 512MB memory for Simple Billing
+          limits:
+            cpu: "250m"  # 0.25 CPU for Simple Billing
+            memory: "512Mi"  # 512MB memory for Simple Billing
         ports:
         - containerPort: 8080
+
       - name: sqlserver
-        image: gcr.io/projectmdanisulhaque/sqlserver:latest
+        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlserver:latest
+        resources:
+          requests:
+            cpu: "500m"  # 0.5 CPU for SQL Server
+            memory: "2Gi"  # 2GB memory for SQL Server
+          limits:
+            cpu: "500m"  # 0.5 CPU for SQL Server
+            memory: "2Gi"  # 2GB memory for SQL Server
         ports:
         - containerPort: 1433
