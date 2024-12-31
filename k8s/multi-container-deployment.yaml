@@ -1,50 +1,38 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: serving.knative.dev/v1
+kind: Service
 metadata:
-  name: multi-container-deployment
+  name: multi-container-service
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: multi-container
   template:
-    metadata:
-      labels:
-        app: multi-container
     spec:
       containers:
-      - name: angular-app
-        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/angular-app:latest
-        resources:
-          requests:
-            cpu: "250m"  # 0.25 CPU for Angular
-            memory: "512Mi"  # 512MB memory for Angular
-          limits:
-            cpu: "250m"  # 0.25 CPU for Angular
-            memory: "512Mi"  # 512MB memory for Angular
-        ports:
-        - containerPort: 80
-
-      - name: simplebilling
-        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest
-        resources:
-          requests:
-            cpu: "250m"  # 0.25 CPU for Simple Billing
-            memory: "512Mi"  # 512MB memory for Simple Billing
-          limits:
-            cpu: "250m"  # 0.25 CPU for Simple Billing
-            memory: "512Mi"  # 512MB memory for Simple Billing
-        ports:
-        - containerPort: 8080
-
-      - name: sqlserver
-        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlserver:latest
-        resources:
-          requests:
-            cpu: "500m"  # 0.5 CPU for SQL Server
-            memory: "2Gi"  # 2GB memory for SQL Server
-          limits:
-            cpu: "500m"  # 0.5 CPU for SQL Server
-            memory: "2Gi"  # 2GB memory for SQL Server
-        ports:
-        - containerPort: 1433
+        - name: angular-app
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/angular-app:latest
+          resources:
+            requests:
+              cpu: "250m"  # 0.25 CPU for Angular
+              memory: "512Mi"  # 512MB memory for Angular
+            limits:
+              cpu: "250m"  # 0.25 CPU for Angular
+              memory: "512Mi"  # 512MB memory for Angular
+          ports:
+            - containerPort: 80
+        # Other containers like simplebilling and sqlserver will run without direct HTTP exposure
+        - name: simplebilling
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest
+          resources:
+            requests:
+              cpu: "250m"  # 0.25 CPU for Simple Billing
+              memory: "512Mi"  # 512MB memory for Simple Billing
+            limits:
+              cpu: "250m"  # 0.25 CPU for Simple Billing
+              memory: "512Mi"  # 512MB memory for Simple Billing
+        - name: sqlserver
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlserver:latest
+          resources:
+            requests:
+              cpu: "500m"  # 0.5 CPU for SQL Server
+              memory: "2Gi"  # 2GB memory for SQL Server
+            limits:
+              cpu: "500m"  # 0.5 CPU for SQL Server
+              memory: "2Gi"  # 2GB memory for SQL Server
