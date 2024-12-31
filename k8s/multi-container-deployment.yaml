@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: multi-container-deployment
 spec:
-  replicas: 1
+  replicas: 1  # Set the number of pod replicas
   selector:
     matchLabels:
       app: multi-container
@@ -13,8 +13,9 @@ spec:
         app: multi-container
     spec:
       containers:
+        # Angular app - exposed externally on port 80
         - name: angular-app
-          image: gcr.io/projectmdanisulhaque/angular-app:latest
+          image: gcr.io/projectmdanisulhaque/angular-app:latest  # Replace with your Angular app image
           resources:
             requests:
               cpu: "250m"  # 0.25 CPU for Angular
@@ -22,8 +23,12 @@ spec:
             limits:
               cpu: "250m"  # 0.25 CPU for Angular
               memory: "512Mi"  # 512MB memory for Angular
+          ports:
+            - containerPort: 80  # Expose HTTP port for Angular
+
+        # SimpleBilling - no external port exposed, internal communication only
         - name: simplebilling
-          image: gcr.io/projectmdanisulhaque/simplebilling:latest
+          image: gcr.io/projectmdanisulhaque/simplebilling:latest  # Replace with your SimpleBilling image
           resources:
             requests:
               cpu: "250m"  # 0.25 CPU for Simple Billing
@@ -31,8 +36,14 @@ spec:
             limits:
               cpu: "250m"  # 0.25 CPU for Simple Billing
               memory: "512Mi"  # 512MB memory for Simple Billing
+          ports: []  # No containerPort exposed for SimpleBilling
+          env:
+            - name: CONNECTION_STRING
+              value: "Server=sqlserver,1433;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True;"  # Internal connection to SQL Server
+
+        # SQL Server - no external port exposed, only internal communication
         - name: sqlserver
-          image: gcr.io/projectmdanisulhaque/sqlserver:latest
+          image: gcr.io/projectmdanisulhaque/sqlserver:latest  # Replace with your SQL Server image
           resources:
             requests:
               cpu: "500m"  # 0.5 CPU for SQL Server
@@ -40,3 +51,9 @@ spec:
             limits:
               cpu: "500m"  # 0.5 CPU for SQL Server
               memory: "2Gi"  # 2GB memory for SQL Server
+          ports: []  # No containerPort exposed for SQL Server
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              value: "123+abc-456"  # Your SQL Server password

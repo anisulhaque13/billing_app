@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-        # Expose only Angular App with port 80 for HTTP traffic
+        # Expose Angular App with port 80 for HTTP traffic
         - name: angular-app
           image: gcr.io/projectmdanisulhaque/angular-app:latest
           resources:
@@ -19,7 +19,7 @@ spec:
           ports:
             - containerPort: 80  # Expose HTTP port for Angular
 
-        # SimpleBilling - no external port exposed
+        # SimpleBilling - No external port exposed
         - name: simplebilling
           image: gcr.io/projectmdanisulhaque/simplebilling:latest
           resources:
@@ -30,8 +30,11 @@ spec:
               cpu: "250m"  # 0.25 CPU for Simple Billing
               memory: "512Mi"  # 512MB memory for Simple Billing
           ports: []  # No containerPort exposed for SimpleBilling
+          env:
+            - name: CONNECTION_STRING
+              value: "Server=sqlserver,1433;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True;"  # Internal connection to SQL Server
 
-        # SQL Server - no external port exposed
+        # SQL Server - No external port exposed, only internal communication allowed
         - name: sqlserver
           image: gcr.io/projectmdanisulhaque/sqlserver:latest
           resources:
@@ -42,3 +45,9 @@ spec:
               cpu: "500m"  # 0.5 CPU for SQL Server
               memory: "2Gi"  # 2GB memory for SQL Server
           ports: []  # No containerPort exposed for SQL Server
+          # Optionally, you can add the environment variable for DB authentication
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              value: "123+abc-456"
