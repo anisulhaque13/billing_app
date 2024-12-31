@@ -18,6 +18,20 @@ spec:
               memory: "512Mi"  # 512MB memory for Angular
           ports:
             - containerPort: 80  # Expose HTTP port for Angular
+          readinessProbe:
+            httpGet:
+              path: /health  # Make sure Angular app has a health endpoint
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health  # Health endpoint for liveness
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
 
         # SimpleBilling - No external port exposed
         - name: simplebilling
@@ -33,6 +47,20 @@ spec:
           env:
             - name: CONNECTION_STRING
               value: "Server=sqlserver,1433;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True;"  # Internal connection to SQL Server
+          readinessProbe:
+            httpGet:
+              path: /health  # Make sure SimpleBilling app has a health endpoint
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health  # Health endpoint for liveness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            failureThreshold: 5
 
         # SQL Server - No external port exposed, only internal communication allowed
         - name: sqlserver
@@ -45,9 +73,28 @@ spec:
               cpu: "500m"  # 0.5 CPU for SQL Server
               memory: "2Gi"  # 2GB memory for SQL Server
           ports: []  # No containerPort exposed for SQL Server
-          # Optionally, you can add the environment variable for DB authentication
           env:
             - name: ACCEPT_EULA
               value: "Y"
             - name: SA_PASSWORD
-              value: "123+abc-456"
+              value: "123+abc-456"  # SQL Server password
+          readinessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "123+abc-456" -Q "SELECT 1" > /dev/null 2>&1
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "123+abc-456" -Q "SELECT 1" > /dev/null 2>&1
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            failureThreshold: 5

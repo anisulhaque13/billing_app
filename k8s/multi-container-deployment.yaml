@@ -57,3 +57,19 @@ spec:
               value: "Y"
             - name: SA_PASSWORD
               value: "123+abc-456"  # Your SQL Server password
+          readinessProbe:
+            exec:
+              command:
+                - "/bin/bash"
+                - "-c"
+                - "sqlcmd -S localhost -U sa -P $SA_PASSWORD -Q 'SELECT 1'"
+            initialDelaySeconds: 30  # Wait for SQL Server to start
+            periodSeconds: 10  # Check every 10 seconds
+          livenessProbe:
+            exec:
+              command:
+                - "/bin/bash"
+                - "-c"
+                - "sqlcmd -S localhost -U sa -P $SA_PASSWORD -Q 'SELECT 1'"
+            initialDelaySeconds: 60  # Wait a bit longer before checking after startup
+            periodSeconds: 10  # Check every 10 seconds
