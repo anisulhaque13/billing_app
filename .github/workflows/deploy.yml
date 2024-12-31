@@ -1,10 +1,9 @@
-name: Deploy to Google Cloud Run
+name: Deploy Multi-Container App to Cloud Run for Anthos
 
 on:
   push:
     branches:
       - google-cloud
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,107 +13,54 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Authenticate with Google Cloud
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-      # Step 3: Set up Google Cloud SDK
+      # Step 2: Set up Google Cloud SDK
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      # Step 4: Install Docker Compose
-      - name: Install Docker Compose
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose --version
+      # Step 3: Authenticate to Google Cloud
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      # Step 5: Authenticate Docker
-      - name: Authenticate Docker
-        run: gcloud auth configure-docker europe-west3-docker.pkg.dev
-
-      # Step 6: Build and Push Angular App
-      - name: Build and Push Angular App
-        working-directory: ./UI/SimpleBilling.web
+      # Step 4: Get GKE credentials
+      - name: Get GKE credentials
         run: |
-          docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest .
-          docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} \
+          --zone ${{ secrets.GKE_CLUSTER_ZONE }} \
+          --project ${{ secrets.GCP_PROJECT_ID }}
 
-      # Step 7: Build and Push Backend App
-      - name: Build and Push Backend App
-        working-directory: ./API/SimpleBilling/SimpleBilling
+      # Step 5: Build and Push Angular App Docker Image
+      - name: Build and Push Angular App Docker Image
+        working-directory: ./UI/SimpleBilling.web  # Directory containing the Angular Dockerfile
         run: |
-          docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest .
-          docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/angular-app:latest .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/angular-app:latest
 
-      # Step 8: Push SQL Server Image (No Build Required)
-      - name: Push SQL Server Image
+      # Step 6: Build and Push Backend App Docker Image
+      - name: Build and Push Backend App Docker Image
+        working-directory: ./API/SimpleBilling  # Directory containing the Backend Dockerfile
         run: |
-          docker pull mcr.microsoft.com/mssql/server:2019-latest
-          docker tag mcr.microsoft.com/mssql/server:2019-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
-          docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest
 
-      # Step 9: Deploy SQL Server to Cloud Run
-      - name: Deploy SQL Server
+      # Step 7: Build and Push SQL Server Docker Image
+      - name: Build and Push SQL Server Docker Image
         run: |
-          gcloud run deploy sqlserver \
-            --image europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/sqlserver:latest \
-            --platform managed \
-            --region europe-west3 \
-            --allow-unauthenticated \
-            --timeout=3600s \
-            --memory=8Gi \
-            --cpu=4 \
-            --set-env-vars ACCEPT_EULA=Y,SA_PASSWORD=123+abc-456 \
-            --command "/bin/bash" \
-            --args "-c '/opt/mssql/bin/sqlservr & sleep 60; curl --fail http://localhost:1433 || exit 1; wait'"
+          docker pull mcr.microsoft.com/mssql/server:2022-latest
+          docker tag mcr.microsoft.com/mssql/server:2022-latest gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlserver:latest
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlserver:latest
 
-      # Step 10: Get SQL Server Service URL
-      - name: Get SQL Server Service URL
-        id: sqlserver_url
+      # Step 8: Deploy to Cloud Run for Anthos
+      - name: Deploy to Cloud Run for Anthos
         run: |
-          SQLSERVER_URL=$(gcloud run services describe sqlserver \
-            --platform managed \
-            --region europe-west3 \
-            --format='value(status.url)')
-          echo "SQLSERVER_URL=$SQLSERVER_URL" >> $GITHUB_ENV
+          kubectl apply -f k8s/multi-container-deployment.yaml
+          kubectl apply -f k8s/multi-container-service.yaml
 
-      # Step 11: Deploy Backend App
-      - name: Deploy Backend App
+      # Step 9: Get Service URL
+      - name: Get Service URL
         run: |
-          gcloud run deploy simplebilling-backend \
-            --image europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/simplebilling:latest \
-            --platform managed \
-            --region europe-west3 \
-            --allow-unauthenticated \
-            --set-env-vars ASPNETCORE_URLS=http://+:8080,BillingDB="Server=${{ env.SQLSERVER_URL }};Database=BillingDB;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True" \
-            --timeout=600s \
-            --memory=2Gi \
-            --cpu=1
-
-      # Step 12: Get Backend Service URL
-      - name: Get Backend Service URL
-        id: backend_url
-        run: |
-          BACKEND_URL=$(gcloud run services describe simplebilling-backend \
-            --platform managed \
-            --region europe-west3 \
-            --format='value(status.url)')
-          echo "BACKEND_URL=$BACKEND_URL" >> $GITHUB_ENV
-
-      # Step 13: Deploy Angular App
-      - name: Deploy Angular App
-        run: |
-          gcloud run deploy angular-app \
-            --image europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/multi-container-repo/angular-app:latest \
-            --platform managed \
-            --region europe-west3 \
-            --allow-unauthenticated \
-            --set-env-vars BACKEND_URL=${{ env.BACKEND_URL }} \
-            --timeout=1200s \
-            --memory=512Mi \
-            --cpu=1
+          kubectl get ksvc multi-container-service -o jsonpath='{.status.url}'
+          echo "Service URL: $(kubectl get ksvc multi-container-service -o jsonpath='{.status.url}')"

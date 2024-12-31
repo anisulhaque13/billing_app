@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-container-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multi-container
+  template:
+    metadata:
+      labels:
+        app: multi-container
+    spec:
+      containers:
+      - name: angular-app
+        image: gcr.io/projectmdanisulhaque/angular-app:latest
+        ports:
+        - containerPort: 80
+      - name: simplebilling
+        image: gcr.io/projectmdanisulhaque/simplebilling:latest
+        ports:
+        - containerPort: 8080
+      - name: sqlserver
+        image: gcr.io/projectmdanisulhaque/sqlserver:latest
+        ports:
+        - containerPort: 1433
