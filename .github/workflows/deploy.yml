@@ -38,34 +38,39 @@ jobs:
           --zone ${{ secrets.GKE_CLUSTER_ZONE }} \
           --project ${{ secrets.GCP_PROJECT_ID }}
 
-      # Step 6: Build and Push Angular App Docker Image
+      # Step 6: Install gke-gcloud-auth-plugin for kubectl
+      - name: Install gke-gcloud-auth-plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin
+
+      # Step 7: Build and Push Angular App Docker Image
       - name: Build and Push Angular App Docker Image
         working-directory: ./UI/SimpleBilling.web  # Directory containing the Angular Dockerfile
         run: |
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/angular-app:latest .
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/angular-app:latest
 
-      # Step 7: Build and Push Backend App Docker Image
+      # Step 8: Build and Push Backend App Docker Image
       - name: Build and Push Backend App Docker Image
         working-directory: ./API/SimpleBilling/SimpleBilling  # Directory containing the Backend Dockerfile
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest .
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest . 
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest
 
-      # Step 8: Build and Push SQL Server Docker Image
+      # Step 9: Build and Push SQL Server Docker Image
       - name: Build and Push SQL Server Docker Image
         run: |
           docker pull mcr.microsoft.com/mssql/server:2022-latest
           docker tag mcr.microsoft.com/mssql/server:2022-latest gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlserver:latest
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlserver:latest
 
-      # Step 9: Deploy to Cloud Run for Anthos
+      # Step 10: Deploy to Cloud Run for Anthos
       - name: Deploy to Cloud Run for Anthos
         run: |
           kubectl apply -f k8s/multi-container-deployment.yaml
           kubectl apply -f k8s/multi-container-service.yaml
 
-      # Step 10: Get Service URL
+      # Step 11: Get Service URL
       - name: Get Service URL
         run: |
           kubectl get ksvc multi-container-service -o jsonpath='{.status.url}'
