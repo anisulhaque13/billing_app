@@ -20,20 +20,11 @@ FROM nginx:alpine AS production-stage
 # Copy the built Angular application to Nginx's default HTML directory
 COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/html
 
-# Copy custom Nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf.template
+# Use custom Nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf 
 
-# Install envsubst for dynamic environment variable substitution
-RUN apk add --no-cache gettext
-
-# Define the BACKEND_URL as an environment variable
-ENV BACKEND_URL=https://simplebilling-backend-xxxx.a.run.app  
-
-# Use envsubst to replace BACKEND_URL in the Nginx configuration
-RUN envsubst '${BACKEND_URL}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
-
-# Expose the dynamically assigned port
-EXPOSE 8080
+# Expose port 80
+EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
