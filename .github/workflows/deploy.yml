@@ -3,7 +3,7 @@ name: Deploy to Google Cloud
 on:
   push:
     branches:
-      - google-cloud  # Trigger the workflow on pushes to the main branch
+      - google-cloud  # Trigger the workflow on pushes to the google-cloud branch
 
 jobs:
   build-and-deploy:
@@ -42,5 +42,5 @@ jobs:
       # Set up Kubernetes configuration and deploy to GKE
       - name: Set up Kubernetes
         run: |
-          gcloud container clusters get-credentials Status: PENDING	simplebilling-cluster --zone europe-west3 --project projectmdanisulhaque
+          gcloud container clusters get-credentials simplebilling-cluster --zone europe-west3 --project projectmdanisulhaque
           kubectl apply -f k8s/deployment.yaml
