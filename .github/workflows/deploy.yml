@@ -47,7 +47,7 @@ jobs:
 
       # Step 7: Build and Push Backend App Docker Image
       - name: Build and Push Backend App Docker Image
-        working-directory: ./API/SimpleBilling  # Directory containing the Backend Dockerfile
+        working-directory: ./API/SimpleBilling/SimpleBilling  # Directory containing the Backend Dockerfile
         run: |
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest .
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling:latest
