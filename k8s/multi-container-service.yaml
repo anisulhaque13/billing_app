@@ -42,5 +42,3 @@ spec:
               cpu: "500m"  # 0.5 CPU for SQL Server
               memory: "2Gi"  # 2GB memory for SQL Server
           ports: []  # No containerPort exposed for SQL Server
-  # Set service visibility to external so it's accessible publicly
-  visibility: External
