@@ -6,12 +6,17 @@ spec:
   template:
     spec:
       containers:
+        # Expose only Angular App with port 80 for HTTP traffic
         - image: gcr.io/projectmdanisulhaque/angular-app:latest
           ports:
-            - containerPort: 80
+            - containerPort: 80  # Expose HTTP port for Angular
+
+        # SimpleBilling - no external port exposed
         - image: gcr.io/projectmdanisulhaque/simplebilling:latest
-          ports:
-            - containerPort: 8080
+          # No containerPort exposed for SimpleBilling, internal communication only
+          ports: []
+
+        # SQL Server - no external port exposed
         - image: gcr.io/projectmdanisulhaque/sqlserver:latest
-          ports:
-            - containerPort: 1433
+          # No containerPort exposed for SQL Server, internal communication only
+          ports: []
