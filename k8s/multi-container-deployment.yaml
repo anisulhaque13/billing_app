@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: multi-container-deployment
 spec:
-  replicas: 1  # Set the number of pod replicas
+  replicas: 1
   selector:
     matchLabels:
       app: multi-container
@@ -13,9 +13,12 @@ spec:
         app: multi-container
     spec:
       containers:
-        # Angular app - exposed externally on port 80
+        # Angular app - exposed externally on port 8080
         - name: angular-app
-          image: gcr.io/projectmdanisulhaque/angular-app:latest  # Replace with your Angular app image
+          image: gcr.io/projectmdanisulhaque/angular-app:latest
+          env:
+            - name: PORT
+              value: "8080"  # Ensure this is set correctly, or dynamically passed by Kubernetes/Cloud Run
           resources:
             requests:
               cpu: "250m"  # 0.25 CPU for Angular
@@ -24,11 +27,11 @@ spec:
               cpu: "250m"  # 0.25 CPU for Angular
               memory: "512Mi"  # 512MB memory for Angular
           ports:
-            - containerPort: 80  # Expose HTTP port for Angular
+            - containerPort: 8080  # Expose HTTP port for Angular
 
-        # SimpleBilling - no external port exposed, internal communication only
+        # SimpleBilling - no external port exposed
         - name: simplebilling
-          image: gcr.io/projectmdanisulhaque/simplebilling:latest  # Replace with your SimpleBilling image
+          image: gcr.io/projectmdanisulhaque/simplebilling:latest
           resources:
             requests:
               cpu: "250m"  # 0.25 CPU for Simple Billing
@@ -39,11 +42,11 @@ spec:
           ports: []  # No containerPort exposed for SimpleBilling
           env:
             - name: CONNECTION_STRING
-              value: "Server=sqlserver,1433;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True;"  # Internal connection to SQL Server
+              value: "Server=sqlserver,1433;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True;"
 
-        # SQL Server - no external port exposed, only internal communication
+        # SQL Server - No external port exposed, only internal communication allowed
         - name: sqlserver
-          image: gcr.io/projectmdanisulhaque/sqlserver:latest  # Replace with your SQL Server image
+          image: gcr.io/projectmdanisulhaque/sqlserver:latest
           resources:
             requests:
               cpu: "500m"  # 0.5 CPU for SQL Server
@@ -57,19 +60,3 @@ spec:
               value: "Y"
             - name: SA_PASSWORD
               value: "123+abc-456"  # Your SQL Server password
-          readinessProbe:
-            exec:
-              command:
-                - "/bin/bash"
-                - "-c"
-                - "sqlcmd -S localhost -U sa -P $SA_PASSWORD -Q 'SELECT 1'"
-            initialDelaySeconds: 30  # Wait for SQL Server to start
-            periodSeconds: 10  # Check every 10 seconds
-          livenessProbe:
-            exec:
-              command:
-                - "/bin/bash"
-                - "-c"
-                - "sqlcmd -S localhost -U sa -P $SA_PASSWORD -Q 'SELECT 1'"
-            initialDelaySeconds: 60  # Wait a bit longer before checking after startup
-            periodSeconds: 10  # Check every 10 seconds
