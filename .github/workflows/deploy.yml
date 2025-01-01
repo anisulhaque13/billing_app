@@ -37,17 +37,17 @@ jobs:
       - name: Build and push Docker images
         run: |
           # Build the Angular app Docker image
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-app:latest ./UI/SimpleBilling.web
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-app:latest
+          docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-repository/simplebilling-app:latest ./UI/SimpleBilling.web
+          docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-repository/simplebilling-app:latest
           
           # Build the .NET Backend Docker image
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest -f API/SimpleBilling/SimpleBilling
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest
+          docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-repository/simplebilling-backend:latest -f API/SimpleBilling/SimpleBilling
+          docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-repository/simplebilling-backend:latest
           
           # Pull the official SQL Server image from Docker Hub and push it to Artifact Registry
           docker pull mcr.microsoft.com/mssql/server:2022-latest
-          docker tag mcr.microsoft.com/mssql/server:2022-latest gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest
+          docker tag mcr.microsoft.com/mssql/server:2022-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-repository/simplebilling-db:latest
+          docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-repository/simplebilling-db:latest
 
       # Step 6: Set up Kubernetes credentials
       - name: Set up GKE credentials
