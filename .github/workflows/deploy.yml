@@ -58,7 +58,7 @@ jobs:
       - name: Set up GKE credentials
         run: |
           sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
-          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
+          gcloud container clusters get-credentials simplebilling-cluster --zone europe-west3 --project projectmdanisulhaque
 
       # Step 9: Deploy to Google Kubernetes Engine
       - name: Deploy to Google Kubernetes Engine
