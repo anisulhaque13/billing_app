@@ -18,14 +18,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      # Step 3: Cache Docker layers
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/docker
-          key: ${{ runner.os }}-docker-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
+      # Step 3: Cache Docker layers (this can be disabled to force a clean build)
+      # Comment out the cache to prevent Docker from caching layers
+      # - name: Cache Docker layers
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.cache/docker
+      #     key: ${{ runner.os }}-docker-${{ github.sha }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-docker-
 
       # Step 4: Log in to Google Cloud using GitHub Secrets
       - name: Log in to Google Cloud
@@ -41,15 +42,15 @@ jobs:
       # Step 6: Build and push Docker images to Google Artifact Registry
       - name: Build and push Docker images
         run: |
-          # Build and tag the Angular app Docker image
-          docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest -f UI/SimpleBilling.web/Dockerfile ./UI/SimpleBilling.web
+          # Build and tag the Angular app Docker image (force rebuild with --no-cache)
+          docker build --no-cache -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest -f UI/SimpleBilling.web/Dockerfile ./UI/SimpleBilling.web
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest
 
-          # Build and tag the .NET Backend Docker image
-          docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest -f API/SimpleBilling/SimpleBilling/Dockerfile ./API/SimpleBilling/SimpleBilling
+          # Build and tag the .NET Backend Docker image (force rebuild with --no-cache)
+          docker build --no-cache -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest -f API/SimpleBilling/SimpleBilling/Dockerfile ./API/SimpleBilling/SimpleBilling
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest
 
-          # Pull the official SQL Server image from Docker Hub, tag, and push it to Artifact Registry
+          # Pull the official SQL Server image from Docker Hub, tag, and push it to Artifact Registry (force rebuild with --no-cache)
           docker pull mcr.microsoft.com/mssql/server:2022-latest
           docker tag mcr.microsoft.com/mssql/server:2022-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-db:latest
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-db:latest
