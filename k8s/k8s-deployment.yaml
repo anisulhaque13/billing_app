@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: simplebilling-angular
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-app:latest
+          image: gcr.io/projectmdanisulhaque/simplebilling-app:latest
           ports:
             - containerPort: 80  # Port for Angular app
           volumeMounts:
@@ -22,12 +22,12 @@ spec:
               mountPath: /usr/share/nginx/html  # Path to mount for Nginx serving the Angular app
         
         - name: simplebilling-backend
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest
+          image: gcr.io/projectmdanisulhaque/simplebilling-backend:latest
           ports:
             - containerPort: 8080  # Port for the backend API
         
         - name: simplebilling-db
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest
+          image: gcr.io/projectmdanisulhaque/simplebilling-db:latest
           ports:
             - containerPort: 1433  # Port for SQL Server
           env:
