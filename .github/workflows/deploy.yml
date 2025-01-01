@@ -33,7 +33,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}  # Using the GCP service account key stored as a GitHub Secret
 
-      # Step 5: Authenticate Docker to Google Artifact Registry using OAuth2 access token
+      # Step 5: Authenticate Docker to Artifact Registry
       - name: Authenticate Docker to Artifact Registry
         run: |
           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://europe-west3-docker.pkg.dev
@@ -44,11 +44,11 @@ jobs:
           # Build and tag the Angular app Docker image
           docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest -f UI/SimpleBilling.web/Dockerfile ./UI/SimpleBilling.web
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest
-          
+
           # Build and tag the .NET Backend Docker image
           docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest -f API/SimpleBilling/SimpleBilling/Dockerfile ./API/SimpleBilling/SimpleBilling
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest
-          
+
           # Pull the official SQL Server image from Docker Hub, tag, and push it to Artifact Registry
           docker pull mcr.microsoft.com/mssql/server:2022-latest
           docker tag mcr.microsoft.com/mssql/server:2022-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-db:latest
@@ -57,9 +57,10 @@ jobs:
       # Step 8: Set up Kubernetes credentials
       - name: Set up GKE credentials
         run: |
+          gcloud components install gke-gcloud-auth-plugin
           gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
 
-      # Step 9: Deploy to GKE
+      # Step 9: Deploy to Google Kubernetes Engine
       - name: Deploy to Google Kubernetes Engine
         run: |
           # Ensure Kubernetes deployment files exist and apply
