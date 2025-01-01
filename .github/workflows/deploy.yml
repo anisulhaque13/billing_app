@@ -41,11 +41,78 @@ jobs:
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-app:latest
           
           # Build the .NET Backend Docker image
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest -f API/SimpleBilling/Dockerfile .
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest -f API/name: CI/CD for Google Cloud
+
+on:
+  push:
+    branches:
+      - google-cloud  # Trigger workflow on push to the google-cloud branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # Step 3: Cache Docker layers
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/docker
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
+      # Step 4: Log in to Google Cloud using GitHub Secrets
+      - name: Log in to Google Cloud
+        uses: google-github-actions/auth@v0.5.0
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}  # Using the GCP service account key stored as a GitHub Secret
+
+      # Step 5: Build and push Docker images to Google Artifact Registry
+      - name: Build and push Docker images
+        run: |
+          # Build the Angular app Docker image
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-app:latest ./UI/SimpleBilling.web
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-app:latest
+          
+          # Build the .NET Backend Docker image
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest -f API/SimpleBilling/SimpleBilling
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest
           
-          # Build the SQL Server Docker image (if custom image is used)
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest -f API/SimpleBilling/db/Dockerfile .
+          # Pull the official SQL Server image from Docker Hub and push it to Artifact Registry
+          docker pull mcr.microsoft.com/mssql/server:2022-latest
+          docker tag mcr.microsoft.com/mssql/server:2022-latest gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest
+
+      # Step 6: Set up Kubernetes credentials
+      - name: Set up GKE credentials
+        run: |
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
+
+      # Step 7: Deploy to GKE
+      - name: Deploy to Google Kubernetes Engine
+        run: |
+          kubectl apply -f k8s-deployment.yaml
+          kubectl apply -f k8s-service.yaml
+
+      # Step 8: Verify the deployment
+      - name: Verify the deployment
+        run: |
+          kubectl get pods
+/Dockerfile .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest
+          
+          # Pull the official SQL Server image from Docker Hub and push it to Artifact Registry
+          docker pull mcr.microsoft.com/mssql/server:2022-latest
+          docker tag mcr.microsoft.com/mssql/server:2022-latest gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest
 
       # Step 6: Set up Kubernetes credentials
