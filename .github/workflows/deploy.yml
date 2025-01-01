@@ -43,9 +43,8 @@ jobs:
         run: |
           echo "Adding the Google Cloud SDK key and repo"
           curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
           sudo apt-get update
-          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
+          sudo apt-get install -y google-cloud-cli-gke-gcloud-auth-plugin
 
       # Step 7: Build and push Docker images to Google Artifact Registry
       - name: Build and push Docker images
@@ -74,11 +73,13 @@ jobs:
           # Ensure Kubernetes deployment files exist and apply
           echo "Checking for k8s deployment files"
           if [ -f "k8s/k8s-deployment.yaml" ]; then
+            echo "Deploying k8s-deployment.yaml"
             kubectl apply -f k8s/k8s-deployment.yaml
           else
             echo "k8s-deployment.yaml not found"
           fi
           if [ -f "k8s/k8s-service.yaml" ]; then
+            echo "Deploying k8s-service.yaml"
             kubectl apply -f k8s/k8s-service.yaml
           else
             echo "k8s-service.yaml not found"
