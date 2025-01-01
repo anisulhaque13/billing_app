@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular application
-FROM node:18 AS build-stage
+FROM node:18 AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json
@@ -21,7 +21,7 @@ FROM nginx:alpine AS production-stage
 COPY nginx.conf /etc/nginx/nginx.conf 
 
 # Copy the built Angular application to Nginx's default HTML directory
-COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/html
+COPY --from=build /app/dist/simple-billing.web/browser /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
