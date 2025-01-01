@@ -42,11 +42,11 @@ jobs:
       - name: Build and push Docker images
         run: |
           # Build the Angular app Docker image
-          docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest ./UI/SimpleBilling.web
+          docker buildx build --platform linux/amd64 -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest ./UI/SimpleBilling.web
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest
           
           # Build the .NET Backend Docker image
-          docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest -f API/SimpleBilling/SimpleBilling
+          docker buildx build --platform linux/amd64 -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest -f API/SimpleBilling/SimpleBilling ./API/SimpleBilling
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest
           
           # Pull the official SQL Server image from Docker Hub and push it to Artifact Registry
