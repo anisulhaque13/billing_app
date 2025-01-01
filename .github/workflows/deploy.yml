@@ -47,7 +47,7 @@ jobs:
           
           # Install and enable the GKE Auth Plugin
           gcloud components update
-          gcloud components install gke-gcloud-auth-plugin
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
 
       # Step 7: Build and push Docker images to Google Artifact Registry
       - name: Build and push Docker images
