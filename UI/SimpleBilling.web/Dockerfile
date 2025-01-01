@@ -17,11 +17,11 @@ RUN npm run build -- --configuration production
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine AS production-stage
 
-# Copy the built Angular application to Nginx's default HTML directory
-COPY --from=build /app/dist/simple-billing.web/browser /usr/share/nginx/html
-
 # Use custom Nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf 
+
+# Copy the built Angular application to Nginx's default HTML directory
+COPY --from=build-stage /app/dist/simple-billing.web/browser /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
