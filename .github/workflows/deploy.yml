@@ -41,7 +41,8 @@ jobs:
       # Step 6: Install the gke-gcloud-auth-plugin for Kubernetes authentication
       - name: Install GKE Auth Plugin
         run: |
-          gcloud components install gke-gcloud-auth-plugin
+          sudo apt-get update
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
 
       # Step 7: Build and push Docker images to Google Artifact Registry
       - name: Build and push Docker images
@@ -68,8 +69,16 @@ jobs:
       - name: Deploy to Google Kubernetes Engine
         run: |
           # Ensure the k8s files are in the correct path
-          kubectl apply -f k8s/k8s-deployment.yaml || echo "k8s-deployment.yaml not found"
-          kubectl apply -f k8s/k8s-service.yaml || echo "k8s-service.yaml not found"
+          if [ -f "k8s/k8s-deployment.yaml" ]; then
+            kubectl apply -f k8s/k8s-deployment.yaml
+          else
+            echo "k8s-deployment.yaml not found"
+          fi
+          if [ -f "k8s/k8s-service.yaml" ]; then
+            kubectl apply -f k8s/k8s-service.yaml
+          else
+            echo "k8s-service.yaml not found"
+          fi
 
       # Step 10: Verify the deployment
       - name: Verify the deployment
