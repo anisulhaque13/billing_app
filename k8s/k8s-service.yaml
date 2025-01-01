@@ -4,9 +4,15 @@ metadata:
   name: simplebilling-service
 spec:
   selector:
-    app: simplebilling-app
+    app: simplebilling
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
-  type: LoadBalancer
+      targetPort: 80  # Forward to the Angular app
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080  # Forward to the Backend API
+    - protocol: TCP
+      port: 1433
+      targetPort: 1433  # Forward to SQL Server
+  type: LoadBalancer  # This exposes your service externally

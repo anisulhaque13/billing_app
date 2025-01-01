@@ -1,27 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simplebilling-app
+  name: simplebilling-deployment
 spec:
-  replicas: 1
+  replicas: 1  # Adjust based on the number of pods you want
   selector:
     matchLabels:
-      app: simplebilling-app
+      app: simplebilling
   template:
     metadata:
       labels:
-        app: simplebilling-app
+        app: simplebilling
     spec:
       containers:
-        - name: angular-app
+        - name: simplebilling-angular
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-app:latest
           ports:
-            - containerPort: 80
-        - name: backend
+            - containerPort: 80  # Port for Angular app
+          volumeMounts:
+            - name: ui-volume
+              mountPath: /usr/share/nginx/html  # Path to mount for Nginx serving the Angular app
+        
+        - name: simplebilling-backend
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest
           ports:
-            - containerPort: 8080
-        - name: sqlserver
+            - containerPort: 8080  # Port for the backend API
+        
+        - name: simplebilling-db
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest
           ports:
-            - containerPort: 1433
+            - containerPort: 1433  # Port for SQL Server
+          env:
+            - name: SA_PASSWORD
+              value: "123+abc-456"
+            - name: ACCEPT_EULA
+              value: "Y"
+
+      volumes:
+        - name: ui-volume
+          emptyDir: {}  # This can be adjusted as needed for persistent volume or specific requirements
