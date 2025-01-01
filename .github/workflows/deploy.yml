@@ -58,7 +58,12 @@ jobs:
       - name: Set up GKE credentials
         run: |
           sudo apt-get update
-          sudo apt-get install -y google-cloud-cli google-cloud-cli-gke-gcloud-auth-plugin
+          sudo apt-get install -y google-cloud-cli
+          # Manually add the Google Cloud SDK repository and install the plugin
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+          sudo apt-get update
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
           gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
 
       # Step 8: Deploy to Google Kubernetes Engine
