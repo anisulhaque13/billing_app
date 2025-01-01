@@ -24,7 +24,7 @@ spec:
         - name: simplebilling-backend
           image: europe-west3-docker.pkg.dev/projectmdanisulhaque/simplebilling-docker-repo/simplebilling-backend:latest  # Include region in image path
           ports:
-            - containerPort: 8080  # Port for the backend API
+            - containerPort: 8081  # Port for the backend API
         
         - name: simplebilling-db
           image: europe-west3-docker.pkg.dev/projectmdanisulhaque/simplebilling-docker-repo/simplebilling-db:latest  # Include region in image path

@@ -9,7 +9,11 @@ spec:
     - name: http
       protocol: TCP
       port: 80       # External port for frontend
-      targetPort: 8080  # Container port for Angular
+      targetPort: 80  # Container port for Angular
+    - name: backend
+      protocol: TCP
+      port: 8081      # External port for SQL Server
+      targetPort: 8081  # Container port for SQL Server
     - name: db
       protocol: TCP
       port: 1433      # External port for SQL Server
