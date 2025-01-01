@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simplebilling-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simplebilling-app
+  template:
+    metadata:
+      labels:
+        app: simplebilling-app
+    spec:
+      containers:
+        - name: angular-app
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-app:latest
+          ports:
+            - containerPort: 80
+        - name: backend
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-backend:latest
+          ports:
+            - containerPort: 8080
+        - name: sqlserver
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/simplebilling-db:latest
+          ports:
+            - containerPort: 1433

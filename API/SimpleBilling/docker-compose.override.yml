@@ -1,42 +1,42 @@
+version: "3.7"
+
 services:
-  angular-app:
-    image: gcr.io/projectmdanisulhaque/angular-app:latest
+  simplebilling-app:
     build:
-      context: ../../UI/SimpleBilling.web
-      dockerfile: Dockerfile
+      context: ./UI/SimpleBilling.web
+    image: gcr.io/projectmdanisulhaque/simplebilling-app:latest
+    container_name: simplebilling-app
     ports:
-      - "7000:80"
+      - "80:80"
     depends_on:
       - simplebilling
+      - db
     networks:
       - backend
+    volumes:
+      - ./UI:/app/UI
+      - ./API:/app/API
 
   simplebilling:
     image: gcr.io/projectmdanisulhaque/simplebilling:latest
+    container_name: simplebilling
     environment:
-      - ASPNETCORE_URLS=http://+:8080;https://+:8081
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/https-dev-cert.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=121
+      - ASPNETCORE_URLS=http://+:8080
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__BillingDB=Server=db;Database=BillingDB;User Id=sa;Password=123+abc-456;TrustServerCertificate=True
-    ports:
-      - "5000:8080"
-      - "5001:8081"
-    volumes:
-      - ./https-dev-cert.pfx:/https/https-dev-cert.pfx:ro
     depends_on:
       - db
     networks:
       - backend
 
   db:
-    image: gcr.io/projectmdanisulhaque/db:latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: db
     environment:
-      - MSSQL_TCP_PORT=1433
       - ACCEPT_EULA=Y
       - SA_PASSWORD=123+abc-456
     ports:
-      - "11433:1433"
+      - "1433:1433"
     networks:
       - backend
     volumes:
@@ -45,3 +45,6 @@ services:
 networks:
   backend:
     driver: bridge
+
+volumes:
+  mssql-data:
