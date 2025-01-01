@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: simplebilling-angular
-          image: gcr.io/projectmdanisulhaque/simplebilling-app:latest
+          image: europe-west3-docker.pkg.dev/projectmdanisulhaque/simplebilling-docker-repo/simplebilling-app:latest  # Include region in image path
           ports:
             - containerPort: 80  # Port for Angular app
           volumeMounts:
@@ -22,12 +22,12 @@ spec:
               mountPath: /usr/share/nginx/html  # Path to mount for Nginx serving the Angular app
         
         - name: simplebilling-backend
-          image: gcr.io/projectmdanisulhaque/simplebilling-backend:latest
+          image: europe-west3-docker.pkg.dev/projectmdanisulhaque/simplebilling-docker-repo/simplebilling-backend:latest  # Include region in image path
           ports:
             - containerPort: 8080  # Port for the backend API
         
         - name: simplebilling-db
-          image: gcr.io/projectmdanisulhaque/simplebilling-db:latest
+          image: europe-west3-docker.pkg.dev/projectmdanisulhaque/simplebilling-docker-repo/simplebilling-db:latest  # Include region in image path
           ports:
             - containerPort: 1433  # Port for SQL Server
           env:
