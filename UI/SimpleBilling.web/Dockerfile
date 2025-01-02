@@ -22,7 +22,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy the built Angular application to Nginx's default HTML directory
 COPY --from=build /app/dist/simple-billing.web/browser /usr/share/nginx/html
-
+RUN ls -R 
 # Expose port 80
 EXPOSE 80
 
