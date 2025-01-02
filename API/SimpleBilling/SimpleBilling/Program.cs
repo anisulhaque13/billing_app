@@ -21,7 +21,7 @@ builder.Services.AddDbContext<BillingDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BillingDB")));
 
 // Configure Kestrel to use the PORT environment variable provided by Cloud Run
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8081";
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(int.Parse(port)); // Bind to the dynamic port
