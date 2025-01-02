@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "angular-app",
-            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/angular-app:latest",
+            "image": "062983379312.dkr.ecr.eu-central-1.amazonaws.com/angular-app:latest",
             "cpu": 256,
             "memory": 512,
             "portMappings": [
@@ -21,7 +21,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-group": "/ecs/simplebilling",
-                    "awslogs-region": "eu-north-1",
+                    "awslogs-region": "eu-central-1",
                     "awslogs-stream-prefix": "angular-app"
                 }
             },
@@ -39,7 +39,7 @@
         },
         {
             "name": "db",
-            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/db:latest",
+            "image": "062983379312.dkr.ecr.eu-central-1.amazonaws.com/db:latest",
             "cpu": 512,
             "memory": 3072,
             "portMappings": [
@@ -66,7 +66,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-group": "/ecs/simplebilling",
-                    "awslogs-region": "eu-north-1",
+                    "awslogs-region": "eu-central-1",
                     "awslogs-stream-prefix": "db"
                 }
             },
@@ -83,7 +83,7 @@
         },
         {
             "name": "simplebilling",
-            "image": "062983379312.dkr.ecr.eu-north-1.amazonaws.com/simplebilling:latest",
+            "image": "062983379312.dkr.ecr.eu-central-1.amazonaws.com/simplebilling:latest",
             "cpu": 256,
             "memory": 512,
             "portMappings": [
@@ -112,7 +112,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-group": "/ecs/simplebilling",
-                    "awslogs-region": "eu-north-1",
+                    "awslogs-region": "eu-central-1",
                     "awslogs-stream-prefix": "simplebilling"
                 }
             },

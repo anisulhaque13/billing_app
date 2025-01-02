@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'  // Makes the service available application-wide
 })
 export class ApiService {
-  baseUrl = 'http://simplebilling-alb-1761924504.eu-north-1.elb.amazonaws.com';  // Global URL
+  baseUrl = 'http://simplebilling-alb-2023715759.eu-central-1.elb.amazonaws.com';  // Global URL
 
   getUrl(endpoint: string): string {
     return `${this.baseUrl}${endpoint}`;
