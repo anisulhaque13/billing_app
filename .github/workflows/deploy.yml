@@ -43,7 +43,7 @@ jobs:
       - name: Build and push Docker images
         run: |
           # Build and tag the Angular app Docker image (force rebuild with --no-cache)
-          docker build --no-cache -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest ./UI/SimpleBilling.web
+          docker build --no-cache -t simplebilling ./UI/SimpleBilling.web
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest
 
           # Build and tag the .NET Backend Docker image (force rebuild with --no-cache)
