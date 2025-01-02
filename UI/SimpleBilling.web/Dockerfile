@@ -18,7 +18,7 @@ RUN npm run build -- --configuration production
 FROM nginx:alpine AS production-stage
 
 # Use custom Nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf 
+COPY UI/simple-billing.web/nginx.conf /etc/nginx/nginx.conf 
 
 # Copy the built Angular application to Nginx's default HTML directory
 COPY --from=build /app/dist/simple-billing.web/browser /usr/share/nginx/html
