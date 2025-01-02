@@ -4,7 +4,7 @@ services:
   simplebilling-app:
     build:
       context: ./UI/SimpleBilling.web
-    image: gcr.io/projectmdanisulhaque/simplebilling-app:latest
+    image: europe-west3-docker.pkg.dev/projectmdanisulhaque/simplebilling-app:latest
     container_name: simplebilling-app
     ports:
       - "80:80"
@@ -18,7 +18,7 @@ services:
       - ./API:/app/API
 
   simplebilling:
-    image: gcr.io/projectmdanisulhaque/simplebilling:latest
+    image: europe-west3-docker.pkg.dev/projectmdanisulhaque/simplebilling:latest
     container_name: simplebilling
     environment:
       - ASPNETCORE_URLS=http://+:8080
