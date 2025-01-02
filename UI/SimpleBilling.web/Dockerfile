@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build -- --configuration production
 
 # Check build output (for debugging)
-RUN ls -l /app/dist/simple-billing.web/
+RUN ls -l /app/dist/simple-billing.web/browser/
 
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine AS production-stage
