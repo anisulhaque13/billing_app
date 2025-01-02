@@ -19,6 +19,13 @@ spec:
           volumeMounts:
             - name: ui-volume
               mountPath: /mnt/ui-volume  # Mount path to copy files into the volume
+          resources:
+            requests:
+              memory: "100Mi"  # Minimum memory requested for the init container
+              cpu: "100m"      # Minimum CPU requested for the init container
+            limits:
+              memory: "200Mi"  # Maximum memory allowed for the init container
+              cpu: "200m"      # Maximum CPU allowed for the init container
 
       containers:
         - name: simplebilling-angular
@@ -28,12 +35,26 @@ spec:
           volumeMounts:
             - name: ui-volume
               mountPath: /usr/share/nginx/html  # Path to mount for Nginx serving the Angular app
+          resources:
+            requests:
+              memory: "512Mi"  # Minimum memory requested for the Angular app
+              cpu: "250m"      # Minimum CPU requested for the Angular app (0.25 CPU)
+            limits:
+              memory: "512Mi"  # Maximum memory allowed for the Angular app
+              cpu: "250m"      # Maximum CPU allowed for the Angular app (0.25 CPU)
 
         - name: simplebilling-backend
           image: europe-west3-docker.pkg.dev/projectmdanisulhaque/simplebilling-docker-repo/simplebilling-backend:latest  # Include region in image path
           ports:
             - containerPort: 8081  # Port for the backend API
-        
+          resources:
+            requests:
+              memory: "512Mi"  # Minimum memory requested for the backend
+              cpu: "250m"      # Minimum CPU requested for the backend (0.25 CPU)
+            limits:
+              memory: "512Mi"  # Maximum memory allowed for the backend
+              cpu: "250m"      # Maximum CPU allowed for the backend (0.25 CPU)
+
         - name: simplebilling-db
           image: europe-west3-docker.pkg.dev/projectmdanisulhaque/simplebilling-docker-repo/simplebilling-db:latest  # Include region in image path
           ports:
@@ -43,6 +64,13 @@ spec:
               value: "123+abc-456"
             - name: ACCEPT_EULA
               value: "Y"
+          resources:
+            requests:
+              memory: "3Gi"   # Minimum memory requested for the database container (3 GB)
+              cpu: "500m"     # Minimum CPU requested for the database container (0.5 CPU)
+            limits:
+              memory: "3Gi"   # Maximum memory allowed for the database container (3 GB)
+              cpu: "500m"     # Maximum CPU allowed for the database container (0.5 CPU)
 
       volumes:
         - name: ui-volume
