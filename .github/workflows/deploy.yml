@@ -18,8 +18,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      # Step 3: Cache Docker layers (this can be disabled to force a clean build)
-      # Comment out the cache to prevent Docker from caching layers
+      # Step 3: Cache Docker layers (optional, can be enabled for faster builds)
       # - name: Cache Docker layers
       #   uses: actions/cache@v2
       #   with:
@@ -41,39 +40,50 @@ jobs:
 
       # Step 6: Build and push Docker images to Google Artifact Registry
       - name: Build and push Docker images
+        uses: docker/build-push-action@v2
+        with:
+          context: ./UI/SimpleBilling.web
+          file: ./UI/SimpleBilling.web/Dockerfile
+          push: true
+          tags: europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest
+          cache-from: type=registry,ref=europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest
+          cache-to: type=inline
+
+      - name: Build and push .NET Backend Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./API/SimpleBilling/SimpleBilling
+          file: ./API/SimpleBilling/SimpleBilling/Dockerfile
+          push: true
+          tags: europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest
+          cache-from: type=registry,ref=europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest
+          cache-to: type=inline
+
+      # Step 7: Pull the official SQL Server image from Docker Hub and push to Artifact Registry
+      - name: Pull and push SQL Server image
         run: |
-          # Build and tag the Angular app Docker image (force rebuild with --no-cache)
-          docker build --no-cache -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest ./UI/SimpleBilling.web
-          docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-app:latest
-
-          # Build and tag the .NET Backend Docker image (force rebuild with --no-cache)
-          docker build --no-cache -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest ./API/SimpleBilling/SimpleBilling
-          docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-backend:latest
-
-          # Pull the official SQL Server image from Docker Hub, tag, and push it to Artifact Registry (force rebuild with --no-cache)
           docker pull mcr.microsoft.com/mssql/server:2022-latest
           docker tag mcr.microsoft.com/mssql/server:2022-latest europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-db:latest
           docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/simplebilling-docker-repo/simplebilling-db:latest
 
-      # Step 7: Set up Kubernetes credentials
+      # Step 8: Set up Kubernetes credentials
       - name: Set up GKE credentials
         run: |
           sudo apt-get update
           sudo apt-get install -y google-cloud-cli
-          # Manually add the Google Cloud SDK repository and install the plugin
           echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
           curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
           sudo apt-get update
           sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
           gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
 
-      # Step 8: Deploy to Google Kubernetes Engine
+      # Step 9: Deploy to Google Kubernetes Engine
       - name: Deploy to Google Kubernetes Engine
         run: |
           kubectl apply -f k8s/k8s-deployment.yaml
           kubectl apply -f k8s/k8s-service.yaml
 
-      # Step 9: Verify the deployment
+      # Step 10: Verify the deployment
       - name: Verify the deployment
         run: |
           kubectl get pods
