@@ -14,6 +14,9 @@ COPY . .
 # Build the Angular application in production mode
 RUN npm run build -- --configuration production
 
+# Debug: Verify if the build output exists
+RUN ls -l /app/dist/simple-billing.web
+
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine AS production-stage
 
