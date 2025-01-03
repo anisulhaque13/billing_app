@@ -28,16 +28,20 @@ builder.WebHost.ConfigureKestrel(options =>
 
 // Define CORS policy
 const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
         policy.WithOrigins(
-            "http://simplebilling-alb-2023715759.eu-central-1.elb.amazonaws.com")  // Add your client app's URL
+            builder.Configuration["AllowedOrigins"] ?? "http://simplebilling-alb-2023715759.eu-central-1.elb.amazonaws.com") // Read from configuration or default
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .SetIsOriginAllowed(origin => true) // Allow requests from any origin
+              .AllowCredentials();
     });
 });
+
 
 // Add a basic health check service
 builder.Services.AddHealthChecks();
