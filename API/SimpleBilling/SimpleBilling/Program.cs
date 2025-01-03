@@ -23,11 +23,7 @@ builder.Services.AddDbContext<BillingDBContext>(options =>
 // Configure Kestrel
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(8080); // HTTP
-    //options.ListenAnyIP(8081, listenOptions =>
-    //{
-    //    listenOptions.UseHttps("/https/https-dev-cert.pfx", "121");
-    //});
+    options.ListenAnyIP(8080);
 });
 
 // Define CORS policy
@@ -48,11 +44,7 @@ builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
-app.UseCors(policy =>
-    policy.AllowAnyHeader()
-          .AllowAnyMethod()
-          .SetIsOriginAllowed(origin => true) // Allow requests from any origin
-          .AllowCredentials());
+
 
 
 // Apply migrations with retry logic
@@ -92,7 +84,7 @@ app.UseSwaggerUI();
 
 // Use health checks middleware
 app.UseHealthChecks("/health");
-
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
 
 app.MapControllers();
