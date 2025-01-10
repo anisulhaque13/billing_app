@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'  // Makes the service available application-wide
 })
 export class ApiService {
-  baseUrl = 'http://35.198.101.145:8081';  // Global URL
+  baseUrl = 'http://34.159.41.202:8081';  // Global URL
 
   getUrl(endpoint: string): string {
     return `${this.baseUrl}${endpoint}`;

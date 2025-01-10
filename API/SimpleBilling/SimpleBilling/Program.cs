@@ -34,7 +34,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
         policy.WithOrigins(
-            builder.Configuration["AllowedOrigins"] ?? "http://35.198.101.145/") // Read from configuration or default
+            builder.Configuration["AllowedOrigins"] ?? "http://34.159.41.202/") // Read from configuration or default
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
