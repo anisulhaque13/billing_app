@@ -1,4 +1,4 @@
-name: CI/CD for Google Cloud
+name: Deploy to GCP GKE
 
 on:
   push:
